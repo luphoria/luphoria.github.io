@@ -1,0 +1,1 @@
+/res/ is made solely for webDesk, for normal luphoria.github.io posts i use /resources/
