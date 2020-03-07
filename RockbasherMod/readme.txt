@@ -1,3 +1,3 @@
 The world's first mod on the online game Rockbasher! ^^
 
-Injects JS with modified values of blocks so you can do things like push indestructible blocks.
+With a god mode mod, and a custom level implementer (as in custom values for levels like 100x100 instead of 64x64, extra time, etc..)
