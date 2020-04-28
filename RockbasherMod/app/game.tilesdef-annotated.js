@@ -1,10 +1,10 @@
 //game.tilesdef painstakingly annotated by luphoria#7667 :)
 game.tilesdef = { 
 "0": { "key": 0, "name": "Fond", "pics": [0], "eatable": true, "miam": "walk2", "glueprog": true }, //Nothing. Setting eatable to false will make this game broken asf
-"1": { "key": 1, "name": "Vide temporaire", "pics": [53], "eatable": true }, //MOD IN Translates to "Temporary vacuum." Likely some sort of alternative to 0
+"1": { "key": 1, "name": "Vide temporaire", "pics": [53], "eatable": true }, //Placeholder block. Has the texture of gold-in-dirt.
 "2": { "key": 2, "name": "Mur indestructible", "indestructible": true, "unstable": true, "pics": [1] }, //Indestructible item. Also the walls on unmodded levels
 "3": { "key": 3, "name": "Terre", "pics": [2], "eatable": true, "miam": "walk", "glueprog": true }, //Dirt 
-"4": { "key": 4, "name": "P\u00e9pite sous terre", "pics": [3], "eatable": true, "miam": "walk", "glueprog": true }, //MOD IN Unclear. Pepite is "nugget" (gold), so it would be gold in dirt, however this has no score added.
+"4": { "key": 4, "name": "P\u00e9pite sous terre", "pics": [3], "eatable": true, "miam": "walk", "glueprog": true }, //DOES NOT WORK. Reason for being here is unknown.
 "5": { "key": 5, "name": "Mur destructible", "unstable": true, "pics": [4] }, //The breakable version of 2
 "6": { "key": 6, "name": "Mur blan avec herbe", "unstable": true, "pics": [5] }, //Mossy white bricks
 "7": { "key": 7, "name": "Mur blan sans herbe", "unstable": true, "pics": [6] }, //White bricks
@@ -34,7 +34,7 @@ game.tilesdef = {
 "31": { "key": 31, "name": "Lave", "pics": [124], "algo": "lave", "anim": { "pics": [124, 125, 126, 127], "nbpic": 4, "modulo": 18 }, "indestructible": true }, //Lava
 "32": { "key": 32, "name": "Sablier", "pics": [7, 24, 25], "cycle": true, "eatable": true, "algo": "chutte", "unstable": true, "clonable": 1, "anim": { "pics": [7, 24, 25], "nbpic": 3, "modulo": 12 }, "miam": "miam", "time": 100, "choc": "crush", "crushtrans": "disapear", "stoptrans": "disapear" }, //Hourglass (resets time)
 "33": { "key": 33, "name": "Bombe active", "algo": "autoexp", "indestructible": true, "pics": [35] }, //Active bomb
-"34": { "key": 34, "name": "Percuteur", "algo": "chutte", "pushable": 1, "pics": [39] }, //MOD IN "Striker" unclear
+"34": { "key": 34, "name": "Percuteur", "algo": "chutte", "pushable": 1, "pics": [39] }, //A part of the penetration bomb. Does not break and is affected by gravity.
 "35": { "key": 35, "name": "Grosse Bombe Active", "algo": "autoexplarge", "indestructible": true, "pics": [33] }, //Active large bomb. Technically not normally able to be put in.
 "36": { "key": 36, "name": "Mur de brique", "unstable": true, "onexp": 37, "pics": [19] }, //Bricks
 "37": { "key": 37, "name": "Mur de brique fissur\u00e9", "pics": [20] }, //Bricks with moss
@@ -107,6 +107,7 @@ game.tilesdef = {
 15 - "Yellow explosion"
 16 - "Gray explosion"
 28 - "Activated metal rock"
+34 - "Striker"
 38 - "Active Large Bomb"
 45 - "Sand rock"
 46 - "Sand rock 2"
