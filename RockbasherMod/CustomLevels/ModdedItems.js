@@ -1,3 +1,4 @@
+alert("Press K to load new map!");
 game.settings = {"playmode":"user","won_url":"\/progress\/validate\/2407","map":{"author":"luphoria","id":6969,"name":"Modded items","description":null,"width":20,"height":13,"time":120,"score":0,"version":"2020-03-15 01:50:39","data":[
 "2","2","2","2","2","2","2","2","2","2","2","2","2","2","2","2","2","2","2","2",
 "2","100","3","3","3","1","0","4","3","3","3","3","3","3","3","3","3","3","3","2",
