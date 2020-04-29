@@ -35,7 +35,7 @@ game.tilesdef = {
 "32": { "key": 32, "name": "Sablier", "pics": [7, 24, 25], "cycle": true, "eatable": true, "algo": "chutte", "unstable": true, "clonable": 1, "anim": { "pics": [7, 24, 25], "nbpic": 3, "modulo": 12 }, "miam": "miam", "time": 100, "choc": "crush", "crushtrans": "disapear", "stoptrans": "disapear" }, //Hourglass (resets time)
 "33": { "key": 33, "name": "Bombe active", "algo": "autoexp", "indestructible": true, "pics": [35] }, //Active bomb
 "34": { "key": 34, "name": "Percuteur", "algo": "chutte", "pushable": 1, "pics": [39] }, //A part of the penetration bomb. Does not break and is affected by gravity.
-"35": { "key": 35, "name": "Grosse Bombe Active", "algo": "autoexplarge", "indestructible": true, "pics": [33] }, //Active large bomb. Technically not normally able to be put in.
+"35": { "key": 35, "name": "Grosse Bombe Active", "algo": "autoexplarge", "indestructible": true, "pics": [33] }, //Active large bomb.
 "36": { "key": 36, "name": "Mur de brique", "unstable": true, "onexp": 37, "pics": [19] }, //Bricks
 "37": { "key": 37, "name": "Mur de brique fissur\u00e9", "pics": [20] }, //Bricks with moss
 "38": { "key": 38, "name": "Boule de verre", "pushable": 1, "pics": [140], "algo": "chutte", "unstable": true, "choc": "crush", "crushtrans": "disapear", "stoptrans": "disapear" }, //"Glass ball" - Does not work
@@ -108,7 +108,7 @@ game.tilesdef = {
 16 - "Gray explosion"
 28 - "Activated metal rock"
 34 - "Striker"
-38 - "Active Large Bomb"
+38 - "Glass ball"
 45 - "Sand rock"
 46 - "Sand rock 2"
 47 - "Sand rock 3"
@@ -129,10 +129,11 @@ DOCS OF ATTRIBUTES:
 "glueprog":whether glue breaks through/destroys it. DEFAULTS TO false
 "indestructible": whether the item is destructible. DEFAULTS TO false
 "pushable": whether the item is pushable. DEFAULTS TO false
-"algo": probably a special attribute. Translates to "something". DEFAULTS TO ""
+"algo": Type of item (chutte means it falls as a rock for example.)
 "clonable": whether it can be cloned. DEFAULTS TO false
 "heavy": whether it takes a longer amount of ms to push. DEFAULTS TO false
 "score": amount of points you gain from running through item. DEFAULTS TO null
+"anim": Animation of photos that display. Syntax: "anim": {"pics": [x,y,z], "nbpic": (number of pics), "modulo": (speed, the lower the number the faster)}
 
-There are more, but they're unimportant.
+There are more, but not documented.
 */

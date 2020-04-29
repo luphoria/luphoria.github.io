@@ -9,3 +9,15 @@ Custom Level IDs:
 #3: ModdedItems
 
 If you mistype an ID or enter one that does not exist, it will not alert you with a message (usually "press K to load new map").
+
+~~BOOKMARKLET SCRIPTS FOR ROCKBASHER (will update automatically)~~
+
+
+~~GOD MODE (also there are a few animation swaps)
+javascript:(function(){document.body.appendChild(document.createElement('script')).src='https://luphoria.github.io/RockbasherMod/app/rockbashermod.js' })();
+
+~~CUSTOM LEVEL LOADER
+javascript:(function(){document.body.appendChild(document.createElement('script')).src='https://luphoria.github.io/RockbasherMod/app/CustomLevelBkmlt.js' })();
+
+~~LEVEL EDITOR REWRITER
+javascript:(function(){document.body.appendChild(document.createElement('script')).src='https://luphoria.github.io/RockbasherMod/app/moddedEditor.js' })();
