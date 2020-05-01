@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Rockbasher Mods and Modding Methods</title>
+</head>
+<body>
+    <h1>Rockbasher Mods and Modding Methods</h1>
+    <p>
+        Rockbasher is a web game written in JavaScript. Because of how JS works, we can modify the game by simply loading new scripts onto the website.
+        <br />Loading scripts can be made to be incredibly easy by a bookmarklet. These allow injection of JS through a url starting with <code>javascript:</code> (in place of http:// or https://).
+        <br />These are my mods and some mod methods I have compiled for the game.
+    </p>
+    <h2>Bookmarklets</h2>
+    <p>
+        These are scripts I have already written and placed in a bookmarklet. These will dynamically update whenever I make a change to the root file, so you don't need to revisit this page every time I update the mod.
+        <br />Drag these links to your bookmarks bar. Any working page will update.
+    </p>
+    <p>
+        <a href="javascript:(function(){document.body.appendChild(document.createElement('script')).src='https://luphoria.github.io/RockbasherMod/app/rockbashermod.js' })();">God Mode</a><br />
+        <a href="javascript:(function(){document.body.appendChild(document.createElement('script')).src='https://luphoria.github.io/RockbasherMod/app/CustomLevelBkmlt.js' })();">Custom Level Loader</a> [ONLY levels i have made, you can view that list at <a href="readme.txt" target="_blank">readme.txt</a>.]<br />
+        <a href="javascript:(function(){document.body.appendChild(document.createElement('script')).src='https://luphoria.github.io/RockbasherMod/app/moddedEditor.js' })();">Level Editor Rewriter</a>. What you want to use to publish a level with modded items.<br />
+        <a href="javascript:(function(){document.body.appendChild(document.createElement('script')).src='https://luphoria.github.io/RockbasherMod/app/animSwap.js' })();">Animation Swapper</a> [really just a test for myself]<br />
+    </p>
+    <h2>Modding Methods</h2>
+    <p>
+        If you want to actually become a pro hax modder of the game, this section is for you. Generally the actual work has already been done, so extensive JavaScript knowledge is not required.
+    </p>
+    <h3>#1: Modifying attributes of items (for god mode, animation swaps, etc)</h3>
+    <p>
+        This is the main reason you would mod the game. It allows you to directly modify attributes of items for the session, and allows for modded scores etc.<br />
+        Consider the PNG: <a href="https://luphoria.github.io/RockbasherMod/app/assets/SpritesheetwIDs.png" target="_blank">Spritesheet with item IDs</a>. This is a useful page that shows the number ID of the visual (in case you can't, well, read French).<br />
+        Now consider my annotated game.tilesdef file: <a href="https://luphoria.github.io/RockbasherMod/app/game.tilesdef-annotated.js" target="_blank">game.tilesdef-annotated.js</a>. This also helps as there is formatting to each item.<br />
+        To make your own mods, you're going to heavily rely on the JavaScript console. [Ctrl+Shift+C to open devtools on Firefox, Ctrl+Shift+I on chrome] - Firefox recommended. When you make modifications to game.tilesdef, simply paste the entire modified file into the console and run it.<br />
+        Most of what you need will be in game.tilesdef-annotated.js, more comments on the bototm.<br />
+        When you've finished, paste this into the console while on an existing level.
+    </p>
+    <h3>#2: Creating fully custom levels</h3>
+    <p>
+        Generally with the level editor rewriter, this is obsolete. However this is still needed for some levels, such as ones with no exits, more than one Rockbasher, or a level larger than 64x64.<br />
+        This Google Doc has an empty level formatted so that it is easier to edit: <a href="https://docs.google.com/document/d/1aEjgYcFLmJctiiV9tOhzZdg-AkxXbrvzknURQQNZ4DY/edit?usp=sharing" target="_blank">Rockbasher - Google Docs</a><br />
+        Note that the <a href="https://luphoria.github.io/RockbasherMod/app/assets/SpritesheetwIDs.png" target="_blank">Spritesheet with item IDs</a> image will be very important here.<br />
+        You need to be very careful while creating these, as one mistake will make it unplayable (and it can be hard to debug).<br />
+        Note that the rockbasher that the level will be played with is going to be the one closest to the top left.<br />
+        Once you've finished, simply copy-paste that data into the console while on a level, then die.
+    </p>
+    <h3>#3: Modifying the level editor itself</h3>
+    <p>
+        This is the most useful for modded levels, as it allows you to directly change the item set available. When you do this, you can actually place the modded items straight into your level, and <i>save</i> it so it can be published.<br />
+        Consider this .js file: <a href="https://www.rockbasher.com/js/map-editor.js" target="_blank">https://www.rockbasher.com/js/map-editor.js</a>. Most of it is useless (TO MY KNOWLEDGE) until you get down to line 76 where you see the "selector".<br />
+        This has the actual table where you place the items. If you've followed any of the other tutorials, you'd know that the numbers are the actual item IDs. (again, spritesheet with IDs is very useful <a href="https://luphoria.github.io/RockbasherMod/app/assets/SpritesheetwIDs.png" target="_blank">here.</a>)<br />
+        You can now replace the IDs (first fill in the 0s is my recommendation, until the "spacing" section where they won't show up) with any modded item (which you can see a mostly full list of at the bottom of <a href="https://luphoria.github.io/RockbasherMod/app/game.tilesdef-annotated.js" target="_blank">game.tilesdef-annotated.js</a>).<br />
+        Again, once you've made your changes, simply paste the full file in the JS console and you should see changes right away.
+    </p>
+</body>
+</html>
