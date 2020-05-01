@@ -1,9 +1,10 @@
 //game.tilesdef painstakingly annotated by luphoria#7667 :)
-game.tilesdef = { 
+//Retextures dirt to an animation with every single tile.
+game.tilesdef = {
 "0": { "key": 0, "name": "Fond", "pics": [0], "eatable": true, "miam": "walk2", "glueprog": true }, //Nothing. Setting eatable to false will make this game broken asf
 "1": { "key": 1, "name": "Vide temporaire", "pics": [53], "eatable": true }, //Placeholder block. Has the texture of gold-in-dirt.
 "2": { "key": 2, "name": "Mur indestructible", "indestructible": true, "unstable": true, "pics": [1] }, //Indestructible item. Also the walls on unmodded levels
-"3": { "key": 3, "name": "Terre", "pics": [2], "eatable": true, "miam": "walk", "glueprog": true }, //Dirt 
+"3": { "key": 3, "name": "Terre", "pics": [2], "eatable": true, "miam": "walk", "glueprog": true, "anim": {"pics": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,198,199,200,201,202,203,204,205,206,207], "nbpic": 208, "modulo": 1 } }, //Dirt
 "4": { "key": 4, "name": "P\u00e9pite sous terre", "pics": [3], "eatable": true, "miam": "walk", "glueprog": true }, //DOES NOT WORK. Reason for being here is unknown.
 "5": { "key": 5, "name": "Mur destructible", "unstable": true, "pics": [4] }, //The breakable version of 2
 "6": { "key": 6, "name": "Mur blan avec herbe", "unstable": true, "pics": [5] }, //Mossy white bricks
@@ -35,23 +36,23 @@ game.tilesdef = {
 "32": { "key": 32, "name": "Sablier", "pics": [7, 24, 25], "cycle": true, "eatable": true, "algo": "chutte", "unstable": true, "clonable": 1, "anim": { "pics": [7, 24, 25], "nbpic": 3, "modulo": 12 }, "miam": "miam", "time": 100, "choc": "crush", "crushtrans": "disapear", "stoptrans": "disapear" }, //Hourglass (resets time)
 "33": { "key": 33, "name": "Bombe active", "algo": "autoexp", "indestructible": true, "pics": [35] }, //Active bomb
 "34": { "key": 34, "name": "Percuteur", "algo": "chutte", "pushable": 1, "pics": [39] }, //A part of the penetration bomb. Does not break and is affected by gravity.
-"35": { "key": 35, "name": "Grosse Bombe Active", "algo": "autoexplarge", "indestructible": true, "pics": [33] }, //Active large bomb.
+"35": { "key": 35, "name": "Grosse Bombe Active", "algo": "autoexplarge", "indestructible": true, "pics": [33] }, //Active large bomb. Appears as an invisible item that can be pushed and breaks on falling.
 "36": { "key": 36, "name": "Mur de brique", "unstable": true, "onexp": 37, "pics": [19] }, //Bricks
 "37": { "key": 37, "name": "Mur de brique fissur\u00e9", "pics": [20] }, //Bricks with moss
-"38": { "key": 38, "name": "Boule de verre", "pushable": 1, "pics": [140], "algo": "chutte", "unstable": true, "choc": "crush", "crushtrans": "disapear", "stoptrans": "disapear" }, //"Glass ball" - Does not work
+"38": { "key": 38, "name": "Boule de verre", "pushable": 1, "pics": [112,113,114,115], "algo": "chutte", "unstable": true, "choc": "crush", "crushtrans": "disapear", "stoptrans": "disapear" }, //"Glass ball" - Does not work
 "39": { "key": 39, "name": "Oeuf Vert", "pics": [156], "algo": "chutte", "unstable": true, "pushable": 1, "clonable": 1, "crushtrans": "oeuf1vert", "stoptrans": "oeuf1vert" }, //Scarabe egg
 "40": { "key": 40, "name": "Oeuf Vert Bris\u00e9", "pics": [172], "algo": "chutte", "unstable": true, "pushable": 1, "clonable": 1, "crushtrans": "oeuf2vert", "stoptrans": "oeuf2vert" }, //Scarabe egg 2
 "41": { "key": 41, "name": "Oeuf Rouge", "pics": [157], "algo": "chutte", "unstable": true, "pushable": 1, "clonable": 1, "crushtrans": "oeuf1rouge", "stoptrans": "oeuf1rouge" }, //Limace egg
 "42": { "key": 42, "name": "Oeuf Rouge Bris\u00e9", "pics": [173], "algo": "chutte", "unstable": true, "pushable": 1, "clonable": 1, "crushtrans": "oeuf2rouge", "stoptrans": "oeuf2rouge" }, //Limace egg 2
 "43": { "key": 43, "name": "Oeuf Jaune", "pics": [159], "algo": "chutte", "unstable": true, "pushable": 1, "clonable": 1, "crushtrans": "oeuf1jaune", "stoptrans": "oeuf1jaune" }, //Bee egg
-"44": { "key": 44, "name": "Oeuf Jaune Bris\u00e9", "pics": [175], "algo": "chutte", "unstable": true, "pushable": 1, "clonable": 1, "crushtrans": "oeuf2jaune", "stoptrans": "oeuf2jaune" }, //Bee egg 2 
+"44": { "key": 44, "name": "Oeuf Jaune Bris\u00e9", "pics": [175], "algo": "chutte", "unstable": true, "pushable": 1, "clonable": 1, "crushtrans": "oeuf2jaune", "stoptrans": "oeuf2jaune" }, //Bee egg 2
 "45": { "key": 45, "name": "Caillou de sable", "pics": [60], "algo": "chutte", "unstable": true, "pushable": 1, "clonable": 1, "crushtrans": "sandrock", "stoptrans": "sandrock" }, //"Sand rock" - A rock that has 3 stages of breaking when falling. Went unused.
 "46": { "key": 46, "name": "Caillou de sable faiblement bris\u00e9", "pics": [61], "algo": "chutte", "unstable": true, "pushable": 1, "clonable": 1, "crushtrans": "sandrock2", "stoptrans": "sandrock2" }, //"Sand rock 2" - Stage 2 of sand rock
 "47": { "key": 47, "name": "Caillou de sable fortement bris\u00e9", "pics": [62], "algo": "chutte", "unstable": true, "pushable": 1, "clonable": 1, "crushtrans": "sandrock3", "stoptrans": "sandrock3" }, //"Sand rock 3" - Stage 3 of sand rock
 // 48/49 missing?
 "50": { "key": 50, "name": "Diamant Vert", "pics": [176], "eatable": true, "algo": "chutte", "unstable": true, "clonable": 1, "anim": { "pics": [176, 177, 178, 179, 180, 181], "nbpic": 6, "modulo": 8 }, "miam": "miam", "score": 3, "choc": "diams" }, //Green diamond
 "51": { "key": 51, "name": "Diamant Bleu", "pics": [184], "eatable": true, "algo": "chutte", "unstable": true, "clonable": 1, "anim": { "pics": [182, 183, 184, 185, 186, 187], "nbpic": 6, "modulo": 8 }, "miam": "miam", "score": 2, "choc": "diams" }, //Blue diamond
-"52": { "key": 52, "name": "P\u00e9pite", "pics": [100], "cycle": true, "eatable": true, "algo": "chutte", "unstable": true, "clonable": 1, "anim": { "pics": [100, 101, 102, 101], "nbpic": 4, "modulo": 6 }, "miam": "miam", "score": 4, "choc": "diams" }, //Gold
+"52": { "key": 52, "name": "P\u00e9pite", "pics": [100], "cycle": true, "eatable": true, "algo": "chutte", "unstable": true, "clonable": 1, "anim": { "pics": [112, 113, 114, 115], "nbpic": 4, "modulo": 6 }, "miam": "miam", "score": 4, "choc": "diams" }, //Gold
 "53": { "key": 53, "name": "P\u00e9pites terreuses", "pics": [53], "score": 4, "eatable": true, "miam": "miam" }, //Gold in dirt
 "54": { "key": 54, "name": "Tomate", "pics": [21], "eatable": true, "algo": "chutte", "unstable": true, "crushtrans": "disapear", "clonable": 1, "miam": "slurp", "score": 1, "choc": "rock" }, //Tomato (HAS THE SLURP SOUND)
 "55": { "key": 55, "name": "Diamants bleus terreux", "pics": [52], "score": 2, "eatable": true, "miam": "miam" }, //Blue diamond in dirt
@@ -81,59 +82,18 @@ game.tilesdef = {
 "102": { "key": 102, "name": "Exit active", "indestructible": true, "unstable": true, "anim": { "pics": [109, 110, 111], "nbpic": 3, "modulo": 6 }, "pics": [109, 110, 111], "cycle": true }, //Active exit
 "103": { "key": 103, "name": "Exit leaving", "indestructible": true, "unstable": true, "pics": [128, 129, 130, 131, 132, 133], "algo": "exitleaving" }, //Exit leaving animation block (Will not end level immediately)
 "128": { "key": 128, "name": "Scarab\u00e9", "pics": [64], "algo": "scarabe", "crushtrans": "scarabe", "crystaltrans": "scarabe", "heattrans": "scarabe", "clonable": 1 }, //This and the next three are the scarabe bug
-"129": { "key": 129, "name": "Scarab\u00e9", "pics": [68], "algo": "scarabe", "crushtrans": "scarabe", "crystaltrans": "scarabe", "heattrans": "scarabe", "clonable": 1 }, 
-"130": { "key": 130, "name": "Scarab\u00e9", "pics": [72], "algo": "scarabe", "crushtrans": "scarabe", "crystaltrans": "scarabe", "heattrans": "scarabe", "clonable": 1 }, 
-"131": { "key": 131, "name": "Scarab\u00e9", "pics": [76], "algo": "scarabe", "crushtrans": "scarabe", "crystaltrans": "scarabe", "heattrans": "scarabe", "clonable": 1 }, 
+"129": { "key": 129, "name": "Scarab\u00e9", "pics": [68], "algo": "scarabe", "crushtrans": "scarabe", "crystaltrans": "scarabe", "heattrans": "scarabe", "clonable": 1 },
+"130": { "key": 130, "name": "Scarab\u00e9", "pics": [72], "algo": "scarabe", "crushtrans": "scarabe", "crystaltrans": "scarabe", "heattrans": "scarabe", "clonable": 1 },
+"131": { "key": 131, "name": "Scarab\u00e9", "pics": [76], "algo": "scarabe", "crushtrans": "scarabe", "crystaltrans": "scarabe", "heattrans": "scarabe", "clonable": 1 },
 "132": { "key": 132, "name": "Limace", "pics": [65], "algo": "limace", "crushtrans": "limace", "crystaltrans": "limace", "heattrans": "limace", "clonable": 1 }, //This and the next three are the limace bug
-"133": { "key": 133, "name": "Limace", "pics": [69], "algo": "limace", "crushtrans": "limace", "crystaltrans": "limace", "heattrans": "limace", "clonable": 1 }, 
-"134": { "key": 134, "name": "Limace", "pics": [73], "algo": "limace", "crushtrans": "limace", "crystaltrans": "limace", "heattrans": "limace", "clonable": 1 }, 
-"135": { "key": 135, "name": "Limace", "pics": [77], "algo": "limace", "crushtrans": "limace", "crystaltrans": "limace", "heattrans": "limace", "clonable": 1 }, 
+"133": { "key": 133, "name": "Limace", "pics": [69], "algo": "limace", "crushtrans": "limace", "crystaltrans": "limace", "heattrans": "limace", "clonable": 1 },
+"134": { "key": 134, "name": "Limace", "pics": [73], "algo": "limace", "crushtrans": "limace", "crystaltrans": "limace", "heattrans": "limace", "clonable": 1 },
+"135": { "key": 135, "name": "Limace", "pics": [77], "algo": "limace", "crushtrans": "limace", "crystaltrans": "limace", "heattrans": "limace", "clonable": 1 },
 "136": { "key": 136, "name": "Papillon", "pics": [66], "algo": "papillon", "crushtrans": "papillon", "crystaltrans": "papillon", "heattrans": "papillon", "clonable": 1 }, //This and the next three are the butterfly bug
-"137": { "key": 137, "name": "Papillon", "pics": [70], "algo": "papillon", "crushtrans": "papillon", "crystaltrans": "papillon", "heattrans": "papillon", "clonable": 1 }, 
+"137": { "key": 137, "name": "Papillon", "pics": [70], "algo": "papillon", "crushtrans": "papillon", "crystaltrans": "papillon", "heattrans": "papillon", "clonable": 1 },
 "138": { "key": 138, "name": "Papillon", "pics": [74], "algo": "papillon", "crushtrans": "papillon", "crystaltrans": "papillon", "heattrans": "papillon", "clonable": 1 },
-"139": { "key": 139, "name": "Papillon", "pics": [78], "algo": "papillon", "crushtrans": "papillon", "crystaltrans": "papillon", "heattrans": "papillon", "clonable": 1 }, 
+"139": { "key": 139, "name": "Papillon", "pics": [78], "algo": "papillon", "crushtrans": "papillon", "crystaltrans": "papillon", "heattrans": "papillon", "clonable": 1 },
 "140": { "key": 140, "name": "Gu\u00eape", "pics": [67], "algo": "guepe", "crushtrans": "guepe", "crystaltrans": "guepe", "heattrans": "guepe", "clonable": 1 }, //This and the next three are the bee/mosquito bug
-"141": { "key": 141, "name": "Gu\u00eape", "pics": [71], "algo": "guepe", "crushtrans": "guepe", "crystaltrans": "guepe", "heattrans": "guepe", "clonable": 1 }, 
-"142": { "key": 142, "name": "Gu\u00eape", "pics": [75], "algo": "guepe", "crushtrans": "guepe", "crystaltrans": "guepe", "heattrans": "guepe", "clonable": 1 }, 
+"141": { "key": 141, "name": "Gu\u00eape", "pics": [71], "algo": "guepe", "crushtrans": "guepe", "crystaltrans": "guepe", "heattrans": "guepe", "clonable": 1 },
+"142": { "key": 142, "name": "Gu\u00eape", "pics": [75], "algo": "guepe", "crushtrans": "guepe", "crystaltrans": "guepe", "heattrans": "guepe", "clonable": 1 },
 "143": { "key": 143, "name": "Gu\u00eape", "pics": [79], "algo": "guepe", "crushtrans": "guepe", "crystaltrans": "guepe", "heattrans": "guepe", "clonable": 1 } };
-/*
-
-~~~ITEMS THAT REQUIRE MODDING IN~~~
-
-1 - "Temporary vacuum"
-4 - "Gold in dirt"
-10 - "Wall with transformer inactive"
-11 - "Wall with transformer active"
-15 - "Yellow explosion"
-16 - "Gray explosion"
-28 - "Activated metal rock"
-34 - "Striker"
-38 - "Glass ball"
-45 - "Sand rock"
-46 - "Sand rock 2"
-47 - "Sand rock 3"
-100 - "Rockbasher"
-103 - "Exit leaving"
-
-
-
-
-HOW TO ADD MOD:
-Use my level editor mod menu bookmarklet to add them directly into the editor. However, note that 1, 4, 100, and 103 do not have proper compatibility and for those you may need to paste the modified level directly into the console.
-
-DOCS OF ATTRIBUTES:
-"eatable": whether you can simply go through the tile. DEFAULTS TO false
-"name": the name of the tile. DEFAULTS TO ""
-"pics": picture[s] to be displayed. DEFAULTS TO "" - This is also why 1 and 4 cannot be placed in the editor, as there is no photo attributed to the item.
-"miam": the noise made when run through. DEFAULTS TO ""
-"glueprog":whether glue breaks through/destroys it. DEFAULTS TO false
-"indestructible": whether the item is destructible. DEFAULTS TO false
-"pushable": whether the item is pushable. DEFAULTS TO false
-"algo": Type of item (chutte means it falls as a rock for example.)
-"clonable": whether it can be cloned. DEFAULTS TO false
-"heavy": whether it takes a longer amount of ms to push. DEFAULTS TO false
-"score": amount of points you gain from running through item. DEFAULTS TO null
-"anim": Animation of photos that display. Syntax: "anim": {"pics": [x,y,z], "nbpic": (number of pics), "modulo": (speed, the lower the number the faster)}
-
-There are more, but not documented.
-*/
