@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        * {
+            background-color: rgb(54, 54, 54);
+        }
+        h1,h2,h3,code,i,b,strong,em,u,a,img,div,p {
+            color: white;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+            background: none;
+        }
+        #text {
+            color: white;
+            font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            text-align: center;
+            background: none;
+        }
+        input,button {
+            background-color:white;
+            color:black;
+            text-align:center;
+        }
+    </style>
+    <title>movie-pass.live XSS generator</title>
+    <script src="generatorTool/program.js"></script>
+</head>
+<body>
+    <h1>movie-pass.live XSS generator</h1>
+    <p>
+        movie-pass.live is a scam targeted-ad website designed to get email:password. However due to the nature of the targeted advertising, we can actually inject JavaScript into the page, completely overriding it.<br />
+        This page is designed to generate URLs with custom HTML (script tags included).
+    </p>
+    <p>I have not tested this enough to legitimately confirm it works 100% of the time, though I have never run into a problem.</p>
+    <p>
+    Due to the way the script that I wrote parses the input, it has to all be one-line. However, this one line can reference <i>another</i> JS file.<br />
+    I recommend you simply paste in HTML from somewhere else where you wrote it.</p>
+
+    <center>
+        <input id="HTMLINPUT" placeholder="Paste html here!"></input><br /><br />
+        <button onclick="sendNoCID()">Generate without cidHide</button><button onclick="sendCID()">Generate with cidHide</button>
+    </center>
+    <br />
+    <p><i>Program created by luphoria#7667</i></p>
+    <script>
+    function sendNoCID(){
+        var ainput = document.getElementById("HTMLINPUT").value;
+        generate(ainput,false);
+    }
+    function sendCID(){
+        var ainput = document.getElementById("HTMLINPUT").value;
+        generate(ainput,true);
+    }
+    </script>
+</body>
+</html>

