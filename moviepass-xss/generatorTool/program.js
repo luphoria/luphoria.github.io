@@ -8,10 +8,11 @@ Designed to create URLS that will override movie-pass.live, allowing you to basi
 function convert(original) {
     var a = original.replace('"', '\"');
     var b = a.replace("'", "\'");
-    var d = b.replace("script", "sc` + `ript");
-    var e = d.replace("`", "\`");
-    var f = e.replace("/", "%2F")
-    var c = encodeURI(f);
+    var d = b.replace("<script>", "<sc` + `ript>");
+    var e = d.replace("</script>", "</sc` + `ript>");
+    var f = e.replace("`", "\`");
+    var g = f.replace("/", "%2F")
+    var c = encodeURI(g);
     console.log("Converted input: " + c);
     inputModified = c;
     return "function convert performed!";
