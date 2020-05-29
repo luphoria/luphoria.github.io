@@ -32,7 +32,8 @@ function generate(binput,cidHide) {
             }
         }
         else {
-            alert("URL generated!\nGenerated url: \n\n\b" + baseURL)
+            console.log("URL generated!\nGenerated url: \n\n\b" + baseURL);
+            document.getElementById("OUTPUT").value = baseURL;
         }
     return "function generate performed!";
 }

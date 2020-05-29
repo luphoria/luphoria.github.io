@@ -20,7 +20,7 @@
             text-align: center;
             background: none;
         }
-        input,button {
+        input,button,textarea {
             background-color:white;
             color:black;
             text-align:center;
@@ -36,13 +36,11 @@
         This page is designed to generate URLs with custom HTML (script tags included).
     </p>
     <p>I have not tested this enough to legitimately confirm it works 100% of the time, though I have never run into a problem.</p>
-    <p>
-    Due to the way the script that I wrote parses the input, it has to all be one-line. However, this one line can reference <i>another</i> JS file.<br />
-    I recommend you simply paste in HTML from somewhere else where you wrote it.</p>
 
     <center>
-        <input id="HTMLINPUT" placeholder="Paste html here!"></input><br /><br />
-        <button onclick="sendNoCID()">Generate without cidHide</button><button onclick="sendCID()">Generate with cidHide</button>
+        <textarea id="HTMLINPUT" placeholder="Paste html here!" height="500" width="700"></textarea><br /><br />
+        <button onclick="sendNoCID()">Generate without cidHide</button><button onclick="sendCID()">Generate with cidHide</button><br />
+        <input id="OUTPUT" placeholder="Output will display here." height="50" width="700"></input>
     </center>
     <br />
     <p><i>Program created by luphoria#7667</i></p>
