@@ -11,8 +11,7 @@ function convert(original) {
     var d = b.replace("<script>", "<sc` + `ript>");
     var e = d.replace("</script>", "</sc` + `ript>");
     var f = e.replace("`", "\`");
-    var g = f.replace("/", "%2F")
-    var c = encodeURI(g);
+    var c = encodeURI(f);
     console.log("Converted input: " + c);
     inputModified = c;
     return "function convert performed!";
