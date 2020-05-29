@@ -10,7 +10,8 @@ function convert(original) {
     var b = a.replace("'", "\'");
     var d = b.replace("script", "sc` + `ript");
     var e = d.replace("`", "\`");
-    var c = encodeURI(e);
+    var f = e.replace("/", "%2F")
+    var c = encodeURI(f);
     console.log("Converted input: " + c);
     inputModified = c;
     return "function convert performed!";
