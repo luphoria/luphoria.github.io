@@ -6,14 +6,12 @@ Designed to create URLS that will override movie-pass.live, allowing you to basi
 */
 
 function convert(original) {
-    var a = original.replace('"', '\"');
-    var b = a.replace("'", "\'");
-    var d = b.replace("<script>", "<sc` + `ript>");
-    var e = d.replace("</script>", "</sc` + `ript>");
-    var f = e.replace("`", "\`");
-    var c = encodeURI(f);
-    console.log("Converted input: " + c);
-    inputModified = c;
+    var a = original.replace('"', '\\"');
+    var b = a.replace("'", "\\'");
+    var c = b.replace("`", "\\'");
+    var d = encodeURI(c);
+    console.log("Converted input: " + d);
+    inputModified = d;
     return "function convert performed!";
 }
 
@@ -35,8 +33,8 @@ function generate(binput,cidHide) {
             }
         }
         else {
-            console.log("URL generated!\nGenerated url: \n\n\b" + baseURL);
-            document.getElementById("OUTPUT").value = baseURL;
+            console.log("URL generated!\nGenerated url: \n\n " + baseURL);
+            document.getElementById("OUTPUT").href = baseURL;
         }
     return "function generate performed!";
 }

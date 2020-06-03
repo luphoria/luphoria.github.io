@@ -8,9 +8,9 @@
         * {
             background-color: rgb(54, 54, 54);
         }
-        h1,h2,h3,code,i,b,strong,em,u,a,img,div,p {
+        h1,h2,h3,i,b,strong,em,u,a,img,div,p {
             color: white;
-            font-family: 'Courier New', Courier, monospace;
+            font-family: 'Arial', Courier, monospace;
             text-align: center;
             background: none;
         }
@@ -35,12 +35,14 @@
         movie-pass.live is a scam targeted-ad website designed to get email:password. However due to the nature of the targeted advertising, we can actually inject JavaScript into the page, completely overriding it.<br />
         This page is designed to generate URLs with custom HTML (script tags included).
     </p>
-    <p>Because of the nature of this tool, there are many bugs. Be sure to report them to luphoria#7667.</p>
+    <p>Because of the nature of this tool, there are many bugs. Be sure to report them to luphoria#7667.<br />
+    However, it's important to note that if your page looks like <a href="https://movie-pass.live/su/?s=xss&cid=&q=Error-inducing+input>&a=3&img=" target="_blank">this</a> it is unlikely I can fix it.<br />
+    I have tried to do so and am unable to fix a broken page if it throws the error <code>SyntaxError: `` literal not terminated before end of script</code>. Sorry about that.</p>
 
     <center>
         <textarea id="HTMLINPUT" placeholder="Paste html here!" height="500" width="700"></textarea><br /><br />
-        <button onclick="sendNoCID()">Generate without cidHide</button><button onclick="sendCID()">Generate with cidHide</button><br />
-        <input id="OUTPUT" placeholder="Output will display here." height="50" width="700"></input>
+        <button onclick="sendNoCID()">Generate without cidHide</button><button onclick="sendCID()">Generate with cidHide</button><br /><br />
+        <a id="OUTPUT" href="" target="_blank">Output</a>
     </center>
     <br />
     <p><i>Program created by luphoria#7667</i></p>
