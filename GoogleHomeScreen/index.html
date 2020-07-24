@@ -18,7 +18,7 @@
 		}
 		input {
 			font-size: 140px;
-			font-family: Roboto, sans-serif;
+			font-family: Courier;
 			font-weight: 400;
 			text-align: center;
 			background: none;
@@ -32,7 +32,7 @@
 		function search() {
 			input = document.getElementById("i"); // <input id="i" [...] >
 			inputModified = encodeURI(input);
-			window.location.replace = "https://google.com/search?q=" + inputModified;
+			window.location.replace("https://google.com/search?q=" + inputModified);
 		}
 	</script>
 </head>
