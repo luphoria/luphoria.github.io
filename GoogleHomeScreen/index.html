@@ -32,7 +32,9 @@
 		function search() {
 			input = document.getElementById("i"); // <input id="i" [...] >
 			inputModified = encodeURI(input);
-			window.location.replace("https://google.com/search?q=bread")
+			redirector = "//google.com/"
+			alert("DEBUG\nRedirecting to" + redirector);
+			window.location.replace(redirector)
 		}
 	</script>
 </head>
