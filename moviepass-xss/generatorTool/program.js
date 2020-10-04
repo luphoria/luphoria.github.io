@@ -9,7 +9,7 @@ function convert(original) {
     a = original.replace(/"/g, '\\"'); //there has to be a faster way to do this.
     b = a.replace(/'/g, "\\'");
     c = b.replace(/`/g, "\\'");
-    d = c.replace(/%/g, "\%");
+    d = c.replace(/%/g, "\\%");
     e = encodeURI(d);
     console.log("Converted input: " + e);
     inputModified = e;
@@ -34,6 +34,10 @@ function generate(binput,cidHide) {
             }
         }
         else {
+            check_for_breakers = baseURL.includes("%" || '"');
+            if (check_for_breakers = "true") {
+                alert("Including '%' or '\"' is likely to break the tool. It will still generate, but be careful.");
+            }
             console.log("URL generated!\nGenerated url: \n\n " + baseURL);
             document.getElementById("OUTPUT").href = baseURL;
         }
