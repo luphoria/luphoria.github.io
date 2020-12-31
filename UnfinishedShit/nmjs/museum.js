@@ -1,5 +1,6 @@
 import { OBJLoader2} from "./lib/OBJLoader2.js"
 import * as THREE from "./lib/three.module.js"
+import "./lib/keydrown.min.js"
 
 var WIDTH = 320
 var HEIGHT = 224
@@ -15,7 +16,7 @@ var camera = new THREE.PerspectiveCamera(80,WIDTH/HEIGHT) // creates camera
 camera.position.y = 3
 camera.position.z = 140
 var dir = new THREE.Vector3()
-var spd = 2
+var spd = 1
 scene.add(camera)
 
 console.error("fuck"); console.error("somebody opened the console"); console.error("shit"); console.error("what do i do now"); console.warn("Please do be careful, the console can be used to steal your data! It may also make the game react in odd ways.\n\nNot as much as you may expect can be done here, due to everything being obfuscated on runtime. Hate to get your hopes down.")
@@ -62,44 +63,29 @@ var col = [debugCubeCollision,"&"/*,debugCube2Collision*/]
 
 const loader = new OBJLoader2()
 loader.load(
-    "./assets/obj/1_opt.obj",
-    function(object) {scene.add(object);object.position.y -= 40;/*object.scale.set(0.4,0.4,0.4)*/},
+    "./assets/obj/1/OPT.obj",
+    function(object) {scene.add(object);object.position.y -= 40;object.scale.set(2.9,2.9,2.9)},
     function(xhr){console.log( xhr.loaded / xhr.total * 100 + '% OBJ loaded' )}
 )
-
-document.onkeydown = function(k) {
-    if(k.code != "KeyE") camera.rotation.x -= 0.05
-    if(camera.rotation.x < 0) camera.rotation.x = 0
-    switch (k.code) {
-        case "KeyA": // left
-            camera.rotation.y += 0.2
-            if(camera.rotation.y >= 6 || camera.rotation.y <= -6) camera.rotation.y = 0 // 6 = full rotation
-            else if(Math.round(camera.rotation.y) == 3) 
-            break
-        case "KeyW": // up
-            camera.getWorldDirection(dir)
-            camera.position.addScaledVector(dir,spd)
-            if(!collisionCheck()) {
-                camera.position.addScaledVector(dir,-spd)
-            }
-            break
-        case "KeyD": // right
-            camera.rotation.y -= 0.2
-            if(camera.rotation.y >= 6 || camera.rotation.y <= -6) camera.rotation.y = 0 // 6 = full rotation
-            break
-        case "KeyS": // down
-            camera.getWorldDirection(dir)
-            camera.position.addScaledVector(dir,-spd)
-            if(!collisionCheck()) {
-                camera.position.addScaledVector(dir,spd)
-            }
-            break
-        case "KeyE": // triangle/look up
-            if(camera.position.x >= 0) camera.rotation.x += 0.05
-            if(camera.rotation.x > 0.6) camera.rotation.x = 0.6
-            break
-        default: break
+function move(type,speed) {
+    if(type == "move") {
+        camera.getWorldDirection(dir)
+        camera.position.addScaledVector(dir,speed)
+        if(!collisionCheck()) {
+            camera.position.addScaledVector(dir,-speed)
+        }
     }
+    else if (type == "rotate") {
+        camera.rotation.y += speed/30
+        if(camera.rotation.y >= 6 || camera.rotation.y <= -6) camera.rotation.y = 0 // 6 = full rotation
+    }
+    else { console.error("ERROR unknown move type " + type) }
 }
 
+kd.W.down(function(){move("move",spd)})
+kd.A.down(function(){move("rotate",spd)})
+kd.S.down(function(){move("move",-spd)})
+kd.D.down(function(){move("rotate",-spd)})
+
+kd.run(function(){kd.tick()})
 render()
