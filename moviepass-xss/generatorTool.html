@@ -41,7 +41,7 @@
 
     <center>
         <textarea id="HTMLINPUT" placeholder="Paste html here!" rows="25" cols="90"></textarea><br /><br />
-        <button onclick="sendNoCID()">Generate without cidHide</button><button onclick="sendCID()">Generate with cidHide</button><br /><br />
+        <button onclick='generate(document.getElementById("HTMLINPUT").value,false)'>Generate without cidHide</button><button onclick='generate(document.getElementById("HTMLINPUT").value,true)'>Generate with cidHide</button><br /><br />
         <a id="OUTPUT" href="" target="_blank">Output</a>
     </center>
     <br />
