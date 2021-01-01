@@ -2,21 +2,22 @@ import { OBJLoader2} from "./lib/OBJLoader2.js"
 import * as THREE from "./lib/three.module.js"
 import "./lib/keydrown.min.js"
 
-var WIDTH = 320
-var HEIGHT = 224
+var WIDTH = 640
+var HEIGHT = 448
 
 var rd = new THREE.WebGLRenderer({antialias:true}) // creates webgl rendering area
 rd.setSize(WIDTH,HEIGHT) // configs area..
-rd.setClearColor(0x00C0DD,1)
+rd.setClearColor(0xFFFFFF,1)
 window.document.body.appendChild(rd.domElement)
 
 var scene = new THREE.Scene()
 
-var camera = new THREE.PerspectiveCamera(80,WIDTH/HEIGHT) // creates camera
+var camera = new THREE.PerspectiveCamera(60,WIDTH/HEIGHT) // creates camera
 camera.position.y = 3
 camera.position.z = 140
 var dir = new THREE.Vector3()
 var spd = 1
+var lookUpToggler = false
 scene.add(camera)
 
 console.error("fuck"); console.error("somebody opened the console"); console.error("shit"); console.error("what do i do now"); console.warn("Please do be careful, the console can be used to steal your data! It may also make the game react in odd ways.\n\nNot as much as you may expect can be done here, due to everything being obfuscated on runtime. Hate to get your hopes down.")
@@ -26,9 +27,26 @@ console.error("fuck"); console.error("somebody opened the console"); console.err
 /* define functions */
 function render() {
     requestAnimationFrame(render)
-    /*if(debugCube.position.y < -20) mvmtModifier = +0.5
-    if(debugCube.position.y > +20) mvmtModifier = -0.5
-    debugCube.position.y += mvmtModifier*/
+    camera.position.x = player.position.x
+    camera.position.y = player.position.y
+    camera.position.z = player.position.z
+
+    camera.rotation.y = player.rotation.y
+
+    if(lookUpToggler) {
+        camera.rotation.x += 0.01
+        camera.rotation.z += 0.01
+    } else {
+        camera.rotation.x -= 0.01
+        camera.rotation.z -= 0.01
+    }
+    if(camera.rotation.x > 0.6 || camera.rotation.z > 0.6) {
+        camera.rotation.x = 0.6
+        camera.rotation.z = 0.6
+    } else if(camera.rotation.x < 0 || camera.rotation.z < 0) {
+        camera.rotation.x = 0
+        camera.rotation.z = 0
+    }
     rd.render(scene,camera)
 }
 function getCoords(box,collision) { // Spent way too long trying to make a giant detection for negative/positive, realised i could add a modifier to a "master" return anyways. Think fucking smarter, not harder.
@@ -39,11 +57,17 @@ function getCoords(box,collision) { // Spent way too long trying to make a giant
 function collisionCheck() {
     var inc = 0
     while(col.length > inc) {
-        if(camera.position.x > col[inc][0] && camera.position.x < col[inc][3] && camera.position.z > col[inc][2] && camera.position.z < col[inc][5]) return true
+        if(player.position.x > col[inc][0] && player.position.x < col[inc][3] && player.position.z > col[inc][2] && player.position.z < col[inc][5]) return true
         inc += 2
     }
     return false
 }
+
+var playergeo = new THREE.BoxGeometry(40,40,40)
+var material = new THREE.MeshBasicMaterial()
+var player = new THREE.Mesh(playergeo,material)
+scene.add(player)
+
 var geometry = new THREE.BoxGeometry( 250, 100, 280 )
 var material = new THREE.MeshBasicMaterial( {color: 0xFF00FF} )
 var debugCube = new THREE.Mesh( geometry, material )
@@ -69,23 +93,29 @@ loader.load(
 )
 function move(type,speed) {
     if(type == "move") {
-        camera.getWorldDirection(dir)
-        camera.position.addScaledVector(dir,speed)
+        player.getWorldDirection(dir)
+        player.position.addScaledVector(dir,speed)
         if(!collisionCheck()) {
-            camera.position.addScaledVector(dir,-speed)
+            player.position.addScaledVector(dir,-speed)
         }
-    }
-    else if (type == "rotate") {
-        camera.rotation.y += speed/30
-        if(camera.rotation.y >= 6 || camera.rotation.y <= -6) camera.rotation.y = 0 // 6 = full rotation
-    }
-    else { console.error("ERROR unknown move type " + type) }
+    } else if (type == "rotate") {
+        player.rotation.y += speed/30
+    } else { console.error("ERROR unknown move type " + type) }
 }
 
-kd.W.down(function(){move("move",spd)})
+kd.W.down(function(){move("move",-spd)})
 kd.A.down(function(){move("rotate",spd)})
-kd.S.down(function(){move("move",-spd)})
+kd.S.down(function(){move("move",spd)})
 kd.D.down(function(){move("rotate",-spd)})
+kd.E.down(function(){lookUpToggler = true})
+kd.E.up(function(){lookUpToggler = false})
+
+var myAudio = new Audio('./assets/sfx/museum.mp3'); 
+myAudio.addEventListener('ended', function() { // Thanks @kingjeffrey on stackoverflow for FF loop support!
+    this.currentTime = 0;
+    this.play();
+}, false);
+myAudio.play();
 
 kd.run(function(){kd.tick()})
 render()
