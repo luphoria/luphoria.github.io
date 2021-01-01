@@ -62,11 +62,9 @@ var col = [debugCubeCollision,"&",debugCube2Collision]
 const loader = new OBJLoader2()
 loader.load(
     "./assets/obj/lob.obj",
-    function(object) {scene.add(object)},
-    function(xhr){console.log( xhr.loaded / xhr.total * 100 + '%' )}
+    function(object) {scene.add(object);object.position.y -= 40;object.scale.set(0.4,0.4,0.4)},
+    function(xhr){console.log( xhr.loaded / xhr.total * 100 + '% OBJ loaded' )}
 )
-
-
 
 document.onkeydown = function(k) {
     if(k.code != "KeyE") camera.rotation.x -= 0.05
@@ -79,9 +77,9 @@ document.onkeydown = function(k) {
             break
         case "KeyW": // up
             camera.getWorldDirection(dir)
-            camera.position.addScaledVector(dir,1)
+            camera.position.addScaledVector(dir,2)
             if(collisionCheck()) {
-                camera.position.addScaledVector(dir,-1)
+                camera.position.addScaledVector(dir,-2)
             }
             break
         case "KeyD": // right
@@ -90,9 +88,9 @@ document.onkeydown = function(k) {
             break
         case "KeyS": // down
             camera.getWorldDirection(dir)
-            camera.position.addScaledVector(dir,-1)
+            camera.position.addScaledVector(dir,-2)
             if(collisionCheck()) {
-                camera.position.addScaledVector(dir,1)
+                camera.position.addScaledVector(dir,2)
             }
             break
         case "KeyE": // triangle/look up
