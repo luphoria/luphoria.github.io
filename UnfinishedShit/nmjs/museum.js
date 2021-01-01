@@ -15,7 +15,7 @@ var camera = new THREE.PerspectiveCamera(80,WIDTH/HEIGHT) // creates camera
 camera.position.y = 3
 camera.position.z = 140
 var dir = new THREE.Vector3()
-
+var spd = 2
 scene.add(camera)
 
 console.error("fuck"); console.error("somebody opened the console"); console.error("shit"); console.error("what do i do now"); console.warn("Please do be careful, the console can be used to steal your data! It may also make the game react in odd ways.\n\nNot as much as you may expect can be done here, due to everything being obfuscated on runtime. Hate to get your hopes down.")
@@ -43,26 +43,27 @@ function collisionCheck() {
     }
     return false
 }
-var geometry = new THREE.BoxGeometry( 50, 50, 50 )
+var geometry = new THREE.BoxGeometry( 250, 100, 280 )
 var material = new THREE.MeshBasicMaterial( {color: 0xFF00FF} )
 var debugCube = new THREE.Mesh( geometry, material )
 scene.add( debugCube )
-var debugCubeCollision = getCoords(debugCube,true)
-
+debugCube.position.x += 30
+var debugCubeCollision = getCoords(debugCube,false)
+/*
 var geometry = new THREE.BoxGeometry(25,25,25)
 var material = new THREE.MeshBasicMaterial({color: 0xFFFF00})
 var debugCube2 = new THREE.Mesh(geometry,material)
 scene.add(debugCube2)
 debugCube2.position.x += 80
 var debugCube2Collision = getCoords(debugCube2,true)
-
-var col = [debugCubeCollision,"&",debugCube2Collision]
+*/
+var col = [debugCubeCollision,"&"/*,debugCube2Collision*/]
 
 
 const loader = new OBJLoader2()
 loader.load(
-    "./assets/obj/lob.obj",
-    function(object) {scene.add(object);object.position.y -= 40;object.scale.set(0.4,0.4,0.4)},
+    "./assets/obj/1_opt.obj",
+    function(object) {scene.add(object);object.position.y -= 40;/*object.scale.set(0.4,0.4,0.4)*/},
     function(xhr){console.log( xhr.loaded / xhr.total * 100 + '% OBJ loaded' )}
 )
 
@@ -77,9 +78,9 @@ document.onkeydown = function(k) {
             break
         case "KeyW": // up
             camera.getWorldDirection(dir)
-            camera.position.addScaledVector(dir,2)
-            if(collisionCheck()) {
-                camera.position.addScaledVector(dir,-2)
+            camera.position.addScaledVector(dir,spd)
+            if(!collisionCheck()) {
+                camera.position.addScaledVector(dir,-spd)
             }
             break
         case "KeyD": // right
@@ -88,9 +89,9 @@ document.onkeydown = function(k) {
             break
         case "KeyS": // down
             camera.getWorldDirection(dir)
-            camera.position.addScaledVector(dir,-2)
-            if(collisionCheck()) {
-                camera.position.addScaledVector(dir,2)
+            camera.position.addScaledVector(dir,-spd)
+            if(!collisionCheck()) {
+                camera.position.addScaledVector(dir,spd)
             }
             break
         case "KeyE": // triangle/look up
