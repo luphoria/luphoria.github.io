@@ -91,7 +91,7 @@ var col = [colCube1_c,colCube2_c,colCube3_c]
 loader.load(
     "./assets/obj/1/OPT.obj",
     function(object) {scene.add(object);object.position.y -= 40;object.scale.set(2.9,2.9,2.9)},
-    function(xhr){console.log( xhr.loaded / xhr.total * 100 + '% OBJ loaded' );if(xhr.total * 100 == 100) document.getElementById("loading").style.visibility = "hidden"}
+    function(xhr){console.log( xhr.loaded / xhr.total * 100 + '% OBJ loaded' );if(xhr.loaded / xhr.total * 100 != 100) {document.getElementById("loading").style.visibility = "visible"} else {document.getElementById("loading").style.visibility = "hidden"}}
 )
 function move(type,speed) {
     if(type == "move") {
