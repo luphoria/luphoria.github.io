@@ -56,7 +56,6 @@ function collisionCheck() {
 }
 
 var playergeo = new THREE.BoxGeometry(40,40,40)
-var material = new THREE.MeshBasicMaterial()
 var player = new THREE.Mesh(playergeo,material)
 scene.add(player)
 player.position.x = 160
