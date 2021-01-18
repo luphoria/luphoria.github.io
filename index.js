@@ -18,10 +18,15 @@ function render() {
     requestAnimationFrame(render)
     var i = 0
     while(i < cubes.length) {
-        var randNum = Math.random()
-        cubes[i].rotation.x += randNum / 1000
-        cubes[i].rotation.y += randNum / 1000
-        cubes[i].rotation.z += randNum / 1000
+        var randNum1 = Math.random()
+        var randNum2 = Math.random()
+        var randNum3 = Math.random()
+        if(Math.round(randNum1*2) == 0) randNum1 = -randNum1
+        if(Math.round(randNum2*2) == 0) randNum2 = -randNum2
+        if(Math.round(randNum3*2) == 0) randNum3 = -randNum3
+        cubes[i].rotation.x += randNum1 / (Math.random()*50)
+        cubes[i].rotation.y += randNum2 / (Math.random()*50)
+        cubes[i].rotation.z += randNum3 / (Math.random()*50)
         i += 1
     }
     camera.rotation.x += Math.random() / 100
