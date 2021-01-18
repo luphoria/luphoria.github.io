@@ -1,47 +1,73 @@
-<!doctype html>
-<html>
-    <head>
-        <title>luphoria</title>
-        <!--luphoria.github.io. my Discord: luphoria#7667 (dms open)-->
-        <style>
-        * {
-            background-color: rgb(54, 54, 54);
-        }
-        h1,h2,h3,code,i,b,strong,em,u,a,img,div {
-            color: white;
-            font-family: 'Courier New', Courier, monospace;
-            text-align: center;
-            background: none;
-        }
-        #text {
-            color: white;
-            font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-            text-align: center;
-            background: none;
-        }
-        </style>
-        <link rel="apple-touch-icon" sizes="57x57" href="/resources/favicons/apple-icon-57x57.png">
-        <link rel="apple-touch-icon" sizes="60x60" href="/resources/favicons/apple-icon-60x60.png">
-        <link rel="apple-touch-icon" sizes="72x72" href="/resources/favicons/apple-icon-72x72.png">
-        <link rel="apple-touch-icon" sizes="76x76" href="/resources/favicons/apple-icon-76x76.png">
-        <link rel="apple-touch-icon" sizes="114x114" href="/resources/favicons/apple-icon-114x114.png">
-        <link rel="apple-touch-icon" sizes="120x120" href="/resources/favicons/apple-icon-120x120.png">
-        <link rel="apple-touch-icon" sizes="144x144" href="/resources/favicons/apple-icon-144x144.png">
-        <link rel="apple-touch-icon" sizes="152x152" href="/resources/favicons/apple-icon-152x152.png">
-        <link rel="apple-touch-icon" sizes="180x180" href="/resources/favicons/apple-icon-180x180.png">
-        <link rel="icon" type="image/png" sizes="192x192"  href="/resources/favicons/android-icon-192x192.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="/resources/favicons/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="96x96" href="/resources/favicons/favicon-96x96.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/resources/favicons/favicon-16x16.png">
-        <link rel="manifest" href="/resources/favicons/manifest.json">
-        <meta name="msapplication-TileColor" content="#ffffff">
-        <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
-        <meta name="theme-color" content="#ffffff">
-    </head>
-    <body>
-        <div><img src="/resources/luphoria.png" height="350" width="350" onerror="alert(`'~'`)"></img></div>
-        <h1>l u p h o r i a</h1>
-        <p id="text">i like infosec. contact me on discord @luphoria#7667.</p>
-        <h1><a href="//luphoria.github.io/projects">projects</a></h1>
-    </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cool Looking 3D Cubes</title>
+    <script type="module" src="./index.js"></script>
+    <style>
+      body {
+        overflow:hidden
+      }
+      canvas {
+        width: 100% !important;
+        height: 100% !important;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        margin: 0px;
+        max-width:100%
+      }
+      div {
+        position:absolute;
+        width:100%;
+        font-family:"Arial", sans-serif;
+        color: #ffffff;
+        text-align:center;
+        font-size: large;
+      }
+      .title {
+        font-size:xx-large;
+        font-weight:1000;
+      }
+      #textContainer {
+        top:10%
+      }
+      a {
+        color:white;
+        font-family:'Courier New', Courier, monospace;
+        font-size: xx-large
+      }
+      #projects {
+        visibility: hidden
+      }
+    </style>
+    <script>
+      function projects() {
+        document.getElementById("projects").style.visibility = "visible"
+        document.getElementById("tohide").innerHTML = ""
+      }
+    </script>
+</head>
+<body id="container">
+  <div id="textContainer">
+    <img src="https://luphoria.github.io/resources/luphoria.png" height="200" width="200"/>
+    <div class="title">l u p h o r i a</div><br/><br/><br/><br/>
+    <div id="projects">
+      <div class="project"><a href="//luphoria.github.io/MCanywhere/bookmarklet.html">Minecraft Anywhere Restored</a></div><br/><br/><br/>
+      <div class="project"><a href="//luphoria.github.io/moviepass-xss/index.html">movie-pass.live Full Page XSS</a></div><br/><br/><br/>
+      <div class="project"><a href="//luphoria.github.io/sm64js/intro.html">sm64js</a></div><br/><br/><br/>
+      <div class="project"><a href="//luphoria.github.io/RockbasherMod">Rockbasher Modding</a></div><br/><br/><br/>
+    </div>
+    <div id="tohide">
+      <div>i like infosec. contact me on discord @luphoria#7667.</div><br/><br/><br/><br/>
+      <div><a href="javascript:projects()">projects</a></div>
+    </div>
+  </div>
+</body>
+<!--
+
+
+-->
 </html>
