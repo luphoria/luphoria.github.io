@@ -1,5 +1,6 @@
 import { OBJLoader2} from "./lib/OBJLoader2.js"
 import * as THREE from "./lib/three.module.js"
+import { MTLLoader } from './lib/MTLLoader.js'
 import "./lib/keydrown.min.js"
 
 var WIDTH = 640
@@ -11,12 +12,13 @@ var loader = new OBJLoader2()
 var camera = new THREE.PerspectiveCamera(60,WIDTH/HEIGHT) // creates camera
 var dir = new THREE.Vector3()
 var material = new THREE.MeshBasicMaterial({visible: false})
+var debugMaterial = new THREE.MeshBasicMaterial({color: 0xFF0000})
 
 rd.setSize(WIDTH,HEIGHT) // configs area..
-rd.setClearColor(0xFFFFFF,1)
+rd.setClearColor(0xCFFFBD,1)
 document.getElementById("gameContainer").appendChild(rd.domElement)
 
-var spd = 1
+var spd = 2
 var lookUpToggler = false
 scene.add(camera)
 
@@ -58,15 +60,24 @@ function collisionCheck() {
 var playergeo = new THREE.BoxGeometry(40,40,40)
 var player = new THREE.Mesh(playergeo,material)
 scene.add(player)
+
+
+player.position.y = -30
+
+/*opt
 player.position.x = 160
-player.position.y = 8
 player.position.z = 145
 player.rotation.y = 1.57
-
+*/
+// fro
+player.position.x = 0
+player.position.z = 0
+player.rotation.y = 1.57
 var geometry = new THREE.BoxGeometry( 220, 100, 290 )
 var colCube1 = new THREE.Mesh( geometry, material )
 scene.add( colCube1 )
-colCube1.position.x -= 30
+colCube1.position.x -= 20
+colCube1.position.z += 10
 var colCube1_c = getCoords(colCube1,false)
 
 var geometry = new THREE.BoxGeometry(100,100,25)
@@ -84,12 +95,31 @@ colCube3.position.z -= 140
 var colCube3_c = getCoords(colCube3,true)
 
 var col = [colCube1_c,colCube2_c,colCube3_c]
-
+/*
 loader.load(
-    "./assets/obj/1/OPT.obj",
-    function(object) {scene.add(object);object.position.y -= 40;object.scale.set(2.9,2.9,2.9)},
+    "./assets/obj/1/FRO/FRO.obj",
+    function(object) {scene.add(object);object.position.y -= 40;object.scale.set(6,6,6)},
     function(xhr){if(xhr.loaded / xhr.total * 100 != 100) {document.getElementById("loading").style.visibility = "visible"} else {document.getElementById("loading").style.visibility = "hidden"}}
 )
+*/
+new MTLLoader( manager )
+.setPath( './assets/obj/1/FRO/' )
+.load( 'FRO.mtl', function ( materials ) {
+
+    materials.preload();
+
+    new OBJLoader( manager )
+        .setMaterials( materials )
+        .setPath( './assets/obj/1/FRO/' )
+        .load( 'FRO.obj', function ( object ) {
+
+            object.position.y = - 40;
+            scene.add( object );
+
+        }, onProgress, onError );
+
+} );
+
 function move(type,speed) {
     if(type == "move") {
         if(kd.Q.isDown()) speed *= 1.7
