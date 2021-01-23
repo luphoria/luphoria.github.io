@@ -3,8 +3,8 @@ import * as THREE from "./lib/three.module.js"
 import { MTLLoader } from './lib/MTLLoader.js'
 import "./lib/keydrown.min.js"
 
-var WIDTH = 640
-var HEIGHT = 448
+var WIDTH = 320
+var HEIGHT = 224
 
 var manager = new THREE.LoadingManager();
 var rd = new THREE.WebGLRenderer({antialias:false}) // creates webgl rendering area
@@ -16,10 +16,10 @@ var material = new THREE.MeshBasicMaterial({visible: false})
 var debugMaterial = new THREE.MeshBasicMaterial({color: 0xFF0000})
 
 rd.setSize(WIDTH,HEIGHT) // configs area..
-rd.setClearColor(0xCFFFBD,1)
+rd.setClearColor(0x930000,1)
 document.getElementById("gameContainer").appendChild(rd.domElement)
 
-var spd = 2
+var spd = 0.5
 var lookUpToggler = false
 scene.add(camera)
 
@@ -117,7 +117,7 @@ mtlLoader.load( 'FRO.mtl', function ( materials ) {
         objLoader.setMaterials( materials ); // TODO FIX THIS
         objLoader.setPath( './assets/obj/1/FRO/' );
         objLoader.load( 'FRO.obj', function ( object ) {
-
+            object.scale.set(4,4,4)
             object.position.y = - 40;
             scene.add( object );
 
