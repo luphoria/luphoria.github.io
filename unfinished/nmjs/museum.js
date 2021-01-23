@@ -63,7 +63,7 @@ var player = new THREE.Mesh(playergeo,material)
 scene.add(player)
 
 
-player.position.y = -30
+player.position.y = -28
 
 /*opt
 player.position.x = 160
@@ -114,11 +114,12 @@ mtlLoader.load( 'FRO.mtl', function ( materials ) {
     materials.preload();
 
     var objLoader = new OBJLoader( manager );
-        objLoader.setMaterials( materials ); // TODO FIX THIS
+        console.log(materials.materials)
+        objLoader.setMaterials( materials );
         objLoader.setPath( './assets/obj/1/FRO/' );
         objLoader.load( 'FRO.obj', function ( object ) {
             object.scale.set(4,4,4)
-            object.position.y = - 40;
+            object.position.y = - 40
             scene.add( object );
 
         });
