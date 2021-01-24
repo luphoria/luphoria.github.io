@@ -9,11 +9,10 @@ var HEIGHT = 224
 var manager = new THREE.LoadingManager();
 var rd = new THREE.WebGLRenderer({antialias:false}) // creates webgl rendering area
 var scene = new THREE.Scene()
-var loader = new OBJLoader()
 var camera = new THREE.PerspectiveCamera(60,WIDTH/HEIGHT) // creates camera
 var dir = new THREE.Vector3()
 var material = new THREE.MeshBasicMaterial({visible: false})
-var debugMaterial = new THREE.MeshBasicMaterial({color: 0xFF0000})
+var debugMaterial = new THREE.MeshBasicMaterial({color: 0x0000FF})
 
 rd.setSize(WIDTH,HEIGHT) // configs area..
 rd.setClearColor(0x930000,1)
@@ -78,7 +77,7 @@ scene.add( ambientLight );
 player.position.x = 0
 player.position.z = 0
 player.rotation.y = 1.57
-/* FRO
+/* OPT
 var geometry = new THREE.BoxGeometry( 220, 100, 290 )
 var colCube1 = new THREE.Mesh( geometry, material )
 scene.add( colCube1 )
@@ -109,13 +108,14 @@ colCube1.position.y -= 30
 colCube1.position.x += 5
 var colCube1_c = getCoords(colCube1,false)
 
-var geometry = new THREE.BoxGeometry( 93, 40, 30 )
+var geometry = new THREE.BoxGeometry( 93, 40, 20 )
 var colCube2 = new THREE.Mesh( geometry, material )
 scene.add( colCube2 )
 colCube2.position.y -= 30
 colCube2.position.x += 6
 var colCube2_c = getCoords(colCube2,false)
 var col = [colCube1_c,colCube2_c]
+
 var mtlLoader = new MTLLoader( manager )
 mtlLoader.setPath( './assets/obj/1/FRO/' )
 mtlLoader.load( 'FRO.mtl', function ( materials ) {
@@ -139,10 +139,10 @@ function move(type,speed) {
     if(type == "move") {
         if(kd.Q.isDown()) speed *= 1.7
         player.getWorldDirection(dir)
-        player.position.addScaledVector(dir,speed)
-        if(!collisionCheck()) {
-            player.position.addScaledVector(dir,-speed)
-        }
+        player.position.x += dir.x * speed
+        if(!collisionCheck()) player.position.x -= dir.x * speed
+        player.position.z += dir.z * speed
+        if(!collisionCheck()) player.position.z -= dir.z * speed
     } else if (type == "rotate") {
         player.rotation.y += speed/27
     } else { console.error("ERROR unknown move type " + type) }
