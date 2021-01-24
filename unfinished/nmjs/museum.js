@@ -78,6 +78,7 @@ scene.add( ambientLight );
 player.position.x = 0
 player.position.z = 0
 player.rotation.y = 1.57
+/* FRO
 var geometry = new THREE.BoxGeometry( 220, 100, 290 )
 var colCube1 = new THREE.Mesh( geometry, material )
 scene.add( colCube1 )
@@ -100,13 +101,21 @@ colCube3.position.z -= 140
 var colCube3_c = getCoords(colCube3,true)
 
 var col = [colCube1_c,colCube2_c,colCube3_c]
-/*
-loader.load(
-    "./assets/obj/1/FRO/FRO.obj",
-    function(object) {scene.add(object);object.position.y -= 40;object.scale.set(6,6,6)},
-    function(xhr){if(xhr.loaded / xhr.total * 100 != 100) {document.getElementById("loading").style.visibility = "visible"} else {document.getElementById("loading").style.visibility = "hidden"}}
-)
 */
+var geometry = new THREE.BoxGeometry( 40, 30, 60 )
+var colCube1 = new THREE.Mesh( geometry, material )
+scene.add( colCube1 )
+colCube1.position.y -= 30
+colCube1.position.x += 5
+var colCube1_c = getCoords(colCube1,false)
+
+var geometry = new THREE.BoxGeometry( 93, 40, 30 )
+var colCube2 = new THREE.Mesh( geometry, material )
+scene.add( colCube2 )
+colCube2.position.y -= 30
+colCube2.position.x += 6
+var colCube2_c = getCoords(colCube2,false)
+var col = [colCube1_c,colCube2_c]
 var mtlLoader = new MTLLoader( manager )
 mtlLoader.setPath( './assets/obj/1/FRO/' )
 mtlLoader.load( 'FRO.mtl', function ( materials ) {
@@ -114,12 +123,12 @@ mtlLoader.load( 'FRO.mtl', function ( materials ) {
     materials.preload();
 
     var objLoader = new OBJLoader( manager );
-        console.log(materials.materials)
         objLoader.setMaterials( materials );
         objLoader.setPath( './assets/obj/1/FRO/' );
         objLoader.load( 'FRO.obj', function ( object ) {
             object.scale.set(4,4,4)
             object.position.y = - 40
+            object.anisotropy = 100
             scene.add( object );
 
         });
@@ -135,7 +144,7 @@ function move(type,speed) {
             player.position.addScaledVector(dir,-speed)
         }
     } else if (type == "rotate") {
-        player.rotation.y += speed/50
+        player.rotation.y += speed/27
     } else { console.error("ERROR unknown move type " + type) }
 }
 
