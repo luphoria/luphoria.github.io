@@ -26,7 +26,7 @@
         font-family:"Arial", sans-serif;
         color: #ffffff;
         text-align:center;
-        font-size: large;
+        font-size: xx-large;
       }
       .title {
         font-size:xx-large;
@@ -38,17 +38,25 @@
       a {
         color:white;
         font-family:'Courier New', Courier, monospace;
-        font-size: xx-large
       }
       #projects {
         visibility: hidden;
         font-size: medium
+      }
+      .project {
+        font-size: xx-large
+      }
+      .tiny {
+        font-size:x-small
       }
     </style>
     <script>
       function projects() {
         document.getElementById("projects").style.visibility = "visible"
         document.getElementById("tohide").innerHTML = ""
+      }
+      function hideText() {
+        document.getElementById("textContainer").innerHTML = ""
       }
     </script>
 </head>
@@ -65,7 +73,8 @@
     </div>
     <div id="tohide">
       <div>i like infosec. contact me on discord @luphoria#7667.</div><br/><br/><br/><br/>
-      <div><a href="javascript:projects()">projects</a></div>
+      <div><a href="javascript:projects()">projects</a></div><br/><br/><br/>
+      <div class="tiny"><a href="javascript:hideText()">background only</a></div>
     </div>
   </div>
 </body>
