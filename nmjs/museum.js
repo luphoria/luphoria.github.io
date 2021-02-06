@@ -7,16 +7,16 @@ import { SelectedLevel } from "./levels/selected.js"
 var WIDTH = 320 // original PSX size
 var HEIGHT = 224
 
-var manager = new THREE.LoadingManager();
+var manager = new THREE.LoadingManager()
 var rd = new THREE.WebGLRenderer({antialias:false}) // creates webgl rendering area
 var scene = new THREE.Scene()
 var camera = new THREE.PerspectiveCamera(60,WIDTH/HEIGHT) // creates camera
 var dir = new THREE.Vector3()
 var material = new THREE.MeshBasicMaterial({visible: false})
-var debugMaterial = new THREE.MeshPhongMaterial({color: 0x000000}) // TODO make this dynamic for FRO
+var debugMaterial = new THREE.MeshPhongMaterial({color: 0x0000FF}) // TODO make this dynamic for FRO
 
 rd.setSize(WIDTH,HEIGHT) // configs area..
-rd.setClearColor(0x930000,1)
+rd.setClearColor(SelectedLevel("clr"),1)
 document.getElementById("gameContainer").appendChild(rd.domElement)
 
 camera.rotation.y = 1.5
@@ -56,8 +56,8 @@ var playergeo = new THREE.BoxGeometry(3,3,3)
 var player = new THREE.Mesh(playergeo,debugMaterial)
 scene.add(player)
 
-const ambientLight = new THREE.AmbientLight( 0xFFFFFF, 1 ); // This should be 100% gamma.
-scene.add( ambientLight );
+const light = new THREE.AmbientLight( 0xFFFFFF, 2 ) // This should be 200% gamma? Looks like original game
+scene.add( light )
 
 
 player.position.x = SelectedLevel("pos")[0]
@@ -69,15 +69,15 @@ player.rotation.y = SelectedLevel("pos")[3]
 let col = SelectedLevel("col")
 var mtlLoader = new MTLLoader( manager )
 mtlLoader.load( SelectedLevel("obj") + "OBJ.mtl", function ( materials ) {
-    materials.preload();
-    var objLoader = new OBJLoader( manager ); // use objLoader over objLoader2 for MTL support
-    objLoader.setMaterials( materials );
+    materials.preload()
+    var objLoader = new OBJLoader( manager ) // use objLoader over objLoader2 for MTL support
+    objLoader.setMaterials( materials )
     objLoader.load( SelectedLevel("obj") + "OBJ.obj", function ( levelobj ) {
         levelobj.scale.set(SelectedLevel("scl"),SelectedLevel("scl"),SelectedLevel("scl"))
         levelobj.position.y =- 42
         scene.add(levelobj)
-    });
-} );
+    })
+} )
 function move(type,speed) {
     switch(type) {
         case "move":
@@ -116,12 +116,12 @@ kd.S.down(function(){move("move",spd)})
 kd.D.down(function(){move("rotate",-spd)})
 kd.E.down(function(){move("lookup",spd)})
 
-var bgm = new Audio('./assets/sfx/museum.mp3'); // reference museum.mp3 -- TODO make this dynamic and changeable per room
+var bgm = new Audio('./assets/sfx/museum.mp3') // reference museum.mp3 -- TODO make this dynamic and changeable per room
 bgm.addEventListener('ended', function() { // Thanks @kingjeffrey on stackoverflow for FF loop support!
-    this.currentTime = 0;
-    this.play();
-}, false);
-bgm.play();
+    this.currentTime = 0
+    this.play()
+}, false)
+bgm.play()
 
 kd.run(function(){kd.tick()}) // KD refreshing for input detection
 render()

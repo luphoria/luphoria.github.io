@@ -54,6 +54,18 @@ export const SelectedLevel = (request) => {
                 default:
                     throw "unimplemented level " + selected
             }
+        case "clr":
+            switch(selected) {
+                case "FRO1":
+                    return FRO_entry_1[4]
+                case "OPT1":
+                    console.warn("OPT1 is fucked")
+                    return OPT_entry_1[4]
+                case "OPT2":
+                    return OPT_entry_2[4]
+                default:
+                    throw "unimplemented level " + selected
+            }
         default:
             throw "unimplemented request " + request
     }
