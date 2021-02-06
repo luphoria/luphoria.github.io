@@ -5,7 +5,7 @@ export const OPT_entry_1 = [
     
     "./levels/1/OPT/obj/",
 
-    0.01, // TODO accuracy
+    "museum",
 
     0x000000
 ]

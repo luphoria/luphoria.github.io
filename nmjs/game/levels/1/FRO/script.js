@@ -5,7 +5,7 @@ export const FRO_entry_1 = [
     
     "./levels/1/FRO/obj/",
 
-    0.01,
+    "museum",
 
     0x930000
 ]

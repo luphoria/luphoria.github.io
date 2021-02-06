@@ -5,7 +5,7 @@ export const OPT_entry_2 = [
     
     "./levels/2/OPT/obj/",
 
-    0.01,
+    "museum",
 
     0x000000
 ]

@@ -12,7 +12,6 @@ var rd = new THREE.WebGLRenderer({antialias:false}) // creates webgl rendering a
 var scene = new THREE.Scene()
 var camera = new THREE.PerspectiveCamera(60,WIDTH/HEIGHT) // creates camera
 var dir = new THREE.Vector3()
-var material = new THREE.MeshBasicMaterial({visible: false})
 var debugMaterial = new THREE.MeshPhongMaterial({color: 0x0000FF}) // TODO make this dynamic for FRO
 
 rd.setSize(WIDTH,HEIGHT) // configs area..
@@ -21,7 +20,7 @@ document.getElementById("gameContainer").appendChild(rd.domElement)
 
 camera.rotation.y = 1.5
 
-var spd = 0.5
+const spd = 1
 scene.add(camera)
 
 /* define functions */
@@ -73,7 +72,7 @@ mtlLoader.load( SelectedLevel("obj") + "OBJ.mtl", function ( materials ) {
     var objLoader = new OBJLoader( manager ) // use objLoader over objLoader2 for MTL support
     objLoader.setMaterials( materials )
     objLoader.load( SelectedLevel("obj") + "OBJ.obj", function ( levelobj ) {
-        levelobj.scale.set(SelectedLevel("scl"),SelectedLevel("scl"),SelectedLevel("scl"))
+        levelobj.scale.set(0.01,0.01,0.01)
         levelobj.position.y =- 42
         scene.add(levelobj)
     })
@@ -110,13 +109,13 @@ function move(type,speed) {
 }
 
 // key input checks
-kd.W.down(function(){move("move",-spd)})
-kd.A.down(function(){move("rotate",spd)})
-kd.S.down(function(){move("move",spd)})
-kd.D.down(function(){move("rotate",-spd)})
-kd.E.down(function(){move("lookup",spd)})
+kd.W.down(function(){move("move",-spd/2)})
+kd.A.down(function(){move("rotate",spd/2)})
+kd.S.down(function(){move("move",spd/2)})
+kd.D.down(function(){move("rotate",-spd/2)})
+kd.E.down(function(){move("lookup",spd/2)})
 
-var bgm = new Audio('./assets/sfx/museum.mp3') // reference museum.mp3 -- TODO make this dynamic and changeable per room
+var bgm = new Audio('./assets/sfx/' + SelectedLevel("sfx") + '.mp3') // reference museum.mp3 -- TODO make this dynamic and changeable per room
 bgm.addEventListener('ended', function() { // Thanks @kingjeffrey on stackoverflow for FF loop support!
     this.currentTime = 0
     this.play()
