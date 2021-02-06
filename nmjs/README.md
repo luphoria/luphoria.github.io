@@ -13,7 +13,7 @@ Really just me, but I'd also lend credit to eros71 for model help, impiaa for re
 A live version can be played at https://luphoria.github.io/unfinished/nmjs/museum
 
 ## End Goal
-All 6 Namco Museum PS1 3D museums playable with the info-cards. NOT the arcade games included.
+All 5 Namco Museum PS1 3D museums playable with the info-cards. NOT the arcade games included.
 
 ## Currently implemented
  - all models from Volume 1 are here in .obj format 
