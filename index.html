@@ -20,20 +20,15 @@
         margin: 0px;
         max-width:100%
       }
-      div {
-        position:absolute;
+      .title {
+        font-weight:1000;
+      }
+      #textContainer {
         width:100%;
         font-family:"Arial", sans-serif;
         color: #ffffff;
         text-align:center;
-        font-size: xx-large;
-      }
-      .title {
-        font-size:xx-large;
-        font-weight:1000;
-      }
-      #textContainer {
-        top:10%
+        font-size: 5vh;
       }
       a {
         color:white;
@@ -41,20 +36,22 @@
       }
       #projects {
         visibility: hidden;
-        font-size: medium
       }
-      .project {
-        font-size: xx-large
+      .big {
+        font-size: 5vh;
+      }
+      .medium {
+        font-size: 3vh;
       }
       .tiny {
-        font-size:x-small
+        font-size: 1.5vh;
       }
     </style>
     <script>
       function projects() {
         document.getElementById("projects").style.visibility = "visible"
         document.getElementById("tohide").innerHTML = ""
-      }
+      }   
       function hideText() {
         document.getElementById("textContainer").innerHTML = ""
       }
@@ -62,24 +59,20 @@
 </head>
 <body id="container">
   <div id="textContainer">
-    <img src="https://luphoria.github.io/resources/luphoria.png" height="200" width="200"/>
-    <div class="title">l u p h o r i a</div><br/><br/><br/><br/>
-    <div id="projects">
-      <div class="project"><a href="//luphoria.github.io/MCanywhere/bookmarklet.html">Minecraft Anywhere Restored</a></div><br/><br/><br/>
-      <div class="project"><a href="//luphoria.github.io/moviepass-xss/index.html">movie-pass.live Full Page XSS</a></div><br/><br/><br/>
-      <div class="project"><a href="//luphoria.github.io/sm64js/intro.html">sm64js</a></div><br/><br/><br/>
-      <div class="project"><a href="//luphoria.github.io/RockbasherMod">Rockbasher Modding</a></div><br/><br/><br/>
-      <div class="project"><a href="//luphoria.github.io/nmjs">Namco Museum JS</a></div><br/><br/><br/>
-    </div>
+    <img src="./resources/luphoria.png" height="200" width="200"/>
+    <div class="title">l u p h o r i a</div>
     <div id="tohide">
-      <div class="project">i like infosec. contact me on discord @luphoria#7667.</div><br/><br/>
-      <div><a href="javascript:projects()">projects</a></div><br/><br/><br/>
+      <div class="medium">i like infosec.</div>
+      <div class="big"><a href="javascript:projects()">projects</a></div><br/>
       <div class="tiny"><a href="javascript:hideText()">background only</a></div>
+    </div>
+    <div id="projects">
+      <div class="medium"><a href="./MCanywhere/bookmarklet.html">Minecraft Anywhere Restored</a></div>
+      <div class="medium"><a href="./moviepass-xss/index.html">movie-pass.live Full Page XSS</a></div>
+      <div class="medium"><a href="./RockbasherMod/index.html">Rockbasher Modding</a></div>
+      <div class="medium"><a href="./nmjs/index.html">Namco Museum JS</a></div>
+      <div class="medium"><a href="./sm64js/intro.html">sm64js</a></div>
     </div>
   </div>
 </body>
-<!--
-
-
--->
 </html>
