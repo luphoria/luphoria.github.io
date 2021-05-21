@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>luphoria</title>
+    <script type="module" src="https://luphoria.github.io/index.js"></script>
+    <style>
+      body {
+        overflow:hidden;
+        cursor:pointer
+      }
+      canvas {
+        width: 100% !important;
+        height: 100% !important;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        margin: 0px;
+        max-width:100%
+      }
+      .title {
+        font-weight:1000;
+      }
+      #textContainer {
+        width:100%;
+        font-family:"Arial", sans-serif;
+        color: #ffffff;
+        text-align:center;
+        font-size: 5vh;
+      }
+      a {
+        color:white;
+        font-family:'Courier New', Courier, monospace;
+      }
+      #projects {
+        visibility: hidden;
+      }
+      .big {
+        font-size: 5vh;
+      }
+      .medium {
+        font-size: 3vh;
+      }
+      .tiny {
+        font-size: 1.5vh;
+      }
+    </style>
+    <script>
+      function go() {
+        if (var input = document.getElementById('url-target').value) {
+          window.location.href = 'https://uberbread.herokuapp.com/main/' + var input = document.getElementById('url-target').value
+        } else {
+          alert('gibe a url first dummy')
+        }
+      }
+     </script>
+</head>
+<body id="container">
+  <div id="textContainer">
+    <img src="https://luphoria.github.io/resources/luphoria.png" height="200" width="200"/>
+    <div class="title">U B e r</div>
+    <div class="big">v4.0 (GUI v1)</div>
+    <div id="tohide">
+      <div class="medium">
+        <input type='text' value="https://www.google.com/webhp?igu=1" placeholder='https://www.google.com/webhp?igu=1' id='url-target' onkeydown='if(event.key==="Enter") go()' ></input><br /><br />
+      <div class="medium">make sure to include a http://, https://, or // at the beginning of the url</div><br />
+      <div class="big"><a href="javascript:window.location.href = document.getElementById('url-target').value">unblock</a> / <a href="javascript:go()">proxy</a></div>
+    </div>
+  </div>
+</body>
+</html>
