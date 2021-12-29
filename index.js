@@ -12,7 +12,7 @@ rd.setClearColor(0x412e41, 1);
 document.getElementById("container").appendChild(rd.domElement);
 
 scene.add(camera);
-
+// TODO completely change this look
 /* define functions */
 function render() {
   requestAnimationFrame(render);
