@@ -1,81 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>luphoria</title>
-    <script type="module" src="./index.js"></script>
-    <style>
-      body {
-        overflow:hidden;
-        cursor:pointer;
-        background-color: #111111;
-      }
-      canvas {
-        width: 100% !important;
-        height: 100% !important;
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: -1;
-        margin: 0px;
-        max-width:100%
-      }
-      .title {
-        font-weight:1000;
-      }
-      #textContainer {
-        width:100%;
-        font-family:"Arial", sans-serif;
-        color: #ffffff;
-        text-align:center;
-        font-size: 5vh;
-      }
-      a {
-        color:white;
-        font-family:'Courier New', Courier, monospace;
-      }
-      #projects {
-        visibility: hidden;
-      }
-      .big {
-        font-size: 5vh;
-      }
-      .medium {
-        font-size: 3vh;
-      }
-      .tiny {
-        font-size: 1.5vh;
-      }
-    </style>
-    <script>
-      function projects() {
-        document.getElementById("projects").style.visibility = "visible"
-        document.getElementById("tohide").innerHTML = ""
-      }   
-      function hideText() {
-        document.getElementById("textContainer").innerHTML = ""
-      }
-    </script>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>~ l u p h o r i a ~</title>
+    <link rel="stylesheet" href="luv.css" type="text/css" />
 </head>
-<body id="container">
-  <div id="textContainer">
-    <img src="./resources/luphoria.png" height="200" width="200" onclick="window.location.href='//searx.degenerate.info/search?q=bread'"/>
-    <div class="title">luphoria</div>
-    <div id="tohide">
-        <div class="medium"><b>i like infosec.</b></div>
-        <div class="medium">contact: discord - lupho<wbr>ria#<wbr>131<wbr>3</div> <!-- wbr (optional line break) used to avoid scraping -->
-      <div class="big"><a href="javascript:projects()">projects</a></div><br/>
-      <div class="tiny"><a href="javascript:hideText()">background only</a></div>
+
+<body>
+    <img style="position: fixed;" src="assets/uhc2.jpg" height="20" /><br />
+    <div id="content">
+        <div class="center">
+            <img class="bread" src="assets/luph-bread.png" /><br />
+            <img src="assets/luph.png" /><br />
+            <p><b>my website!<br />here, i host and share my projects, just for fun :)</b></p>
+            <img id="enter" onclick='document.getElementById("projects").style.display = "inline-block";document.getElementById("enter").style.display = "none"' src="assets/enter.gif"></img><br/>
+            <div style="display:none;" id="projects">
+                <div class="medium"><a href="./MCanywhere/bookmarklet.html">minecraft anywhere restored</a></div>
+                <div class="medium"><a href="./RockbasherMod/index.html">rockbasher modding</a></div>
+                <div class="medium"><a href="./nmjs/index.html">namco museum js</a></div>
+                <div class="medium"><a href="./moviepxss/index.html">moviepxss</a></div>
+                <div class="medium"><a href="./sm64js/intro.html">sm64js</a></div>
+                <div class="medium"><a href="./hypertabs/index.html">hypertabs</a></div>
+            </div>
+            <br/><br/><br/>
+            <div id="blinkies">
+                <img class="blinkie" src="assets/worker.gif" />
+                <img class="blinkie" src="assets/www.gif" />
+                <img class="blinkie" src="assets/lovey.gif" />
+                <img class="blinkie" src="assets/got_html.gif" />
+                <img class="blinkie" src="assets/getacomputer.jpg" />
+                <img class="blinkie" src="assets/chill.webp" />
+                <img class="blinkie" src="assets/deprived.gif" />
+                <img class="blinkie" src="assets/sutgoogle.gif" />
+                <img class="blinkie" src="assets/learnhtml.gif" />
+                <img class="blinkie" src="assets/groovy.webp" />
+                <img class="blinkie" src="assets/bookmark.gif" />
+                <img class="blinkie" src="assets/homosexual.gif" />
+                <img class="blinkie" src="assets/mavica.gif" />
+                <img class="blinkie" src="assets/netscape-1996.gif" />
+                <img class="blinkie" src="assets/system32.gif" />
+                <img class="blinkie" src="assets/site_best_viewed_with_monitor.gif" />
+                <img class="blinkie" src="assets/worker.gif" />
+            </div>
+        </div>
     </div>
-    <div id="projects">
-      <div class="medium"><a href="./MCanywhere/bookmarklet.html">Minecraft Anywhere Restored</a></div>
-      <div class="medium"><a href="./RockbasherMod/index.html">Rockbasher Modding</a></div>
-      <div class="medium"><a href="./nmjs/index.html">Namco Museum JS</a></div>
-      <div class="medium"><a href="./moviepxss/index.html">moviepxss</a></div>
-      <div class="medium"><a href="./sm64js/intro.html">sm64js</a></div>
-      <div class="medium"><a href="./hypertabs/index.html">hypertabs</a></div>
-    </div>
-  </div>
 </body>
+
 </html>
