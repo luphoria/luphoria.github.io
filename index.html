@@ -7,14 +7,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>~ l u p h o r i a ~</title>
     <link rel="stylesheet" href="luv.css" type="text/css" />
+    <script>
+        // super simple: i use vh for all sizing so it is nice and
+        // dynamic, but the problem is, on mobile it sucks. this is because
+        // height is gt width. so, this simple oneliner will detect if that
+        // is the case, and if so, inject a friendly stylesheet :)
+        if(window.innerHeight > window.innerWidth) document.head.innerHTML += '<style>#content{margin:10vw}#enter{height:7vw}.title{height:10vw}.blinkie{height:4vw}.medium{font-size:3vw}.bread{width:40vw}</style>'
+    </script>
 </head>
-
 <body>
     <img style="position: fixed;" src="assets/uhc2.jpg" height="20" /><br />
     <div id="content">
         <div class="center">
             <img class="bread" src="assets/luph-bread.png" /><br />
-            <img src="assets/luph.png" /><br />
+            <img class="title" src="assets/luph.png" /><br />
             <p><b>my website!<br />here, i host and share my projects, just for fun :)</b></p>
             <img id="enter" onclick='document.getElementById("projects").style.display = "inline-block";document.getElementById("enter").style.display = "none"' src="assets/enter.gif"></img><br/>
             <div style="display:none;" id="projects">
