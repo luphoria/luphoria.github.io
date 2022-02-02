@@ -1,6 +1,6 @@
 /*
 program.js by luphoria
-luphoria.github.io
+luphoria.com
 
 Designed to create URLS that will override movie-pass.live, allowing you to basically own the domain name.
 */

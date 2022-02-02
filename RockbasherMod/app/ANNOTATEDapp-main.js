@@ -1,5 +1,5 @@
 /*
-ANNOTATION app-main.js by luphoria: luphoria.github.io
+ANNOTATION app-main.js by luphoria: luphoria.com
 I will make an unmodified version with as close to full annotations soon! ^^
  -- If you want to know the amount of work i put into this, basically this had no annotations before and also was not formatted for easy viewing. --
 */
