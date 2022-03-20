@@ -8,7 +8,7 @@
   "m.integrations": {
     "managers": [
       {
-        "api_url": "https://dimension.urmomis.online/api/v1/scalar",
+        "api_url": "https://dimension.luphoria.com/api/v1/scalar",
         "ui_url": "https://dimension.luphoria.com/element"
       }
     ]
