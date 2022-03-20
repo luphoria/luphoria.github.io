@@ -1,0 +1,30 @@
+{
+  "m.homeserver": {
+    "base_url": "https://matrix.luphoria.com"
+  },
+  "m.identity_server": {
+    "base_url": "https://matrix.luphoria.com"
+  },
+  "m.integrations": {
+    "managers": [
+      {
+        "api_url": "https://dimension.urmomis.online/api/v1/scalar",
+        "ui_url": "https://dimension.luphoria.com/element"
+      }
+    ]
+  },
+  "io.element.jitsi": {
+    "preferredDomain": "jitsi.luphoria.com"
+  },
+  "im.vector.riot.jitsi": {
+    "preferredDomain": "jitsi.luphoria.com"
+  },
+  "io.element.e2ee": {
+    "default": true,
+    "secure_backup_required": false,
+    "secure_backup_setup_methods": []
+  },
+  "im.vector.riot.e2ee": {
+    "default": true
+  }
+}
