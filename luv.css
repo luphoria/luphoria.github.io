@@ -11,6 +11,10 @@ a {
   font-family:'Courier New', Courier, monospace;
   background-color: gray;
 }
+div {
+  font-family: Georgia,times new roman,Times,serif;
+   color: #a491b6;
+}
 #content {
   margin: 10vh;
   background-color: #1f112b88;
