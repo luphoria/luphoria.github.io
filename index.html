@@ -13,6 +13,8 @@
         // height is gt width. so, this simple oneliner will detect if that
         // is the case, and if so, inject a friendly stylesheet :)
         if(window.innerHeight > window.innerWidth) document.head.innerHTML += '<style>#content{margin:10vw}#enter{height:7vw}.title{height:10vw}.blinkie{height:4vw}.medium{font-size:3vw}.bread{width:40vw}</style>'
+
+        history.pushState("https://luphoria.com","~ l u p h o r i a ~","/"); // in case somebody got here with a ?redirect
     </script>
 </head>
 <body>
