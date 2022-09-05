@@ -1,4 +1,4 @@
-//game.tilesdef painstakingly annotated by luphoria#7667 :)
+//game.tilesdef painstakingly annotated by @trent:gra.im :)
 //Retextures dirt to an animation with every single tile.
 game.tilesdef = {
 "0": { "key": 0, "name": "Fond", "pics": [0], "eatable": true, "miam": "walk2", "glueprog": true }, //Nothing. Setting eatable to false will make this game broken asf

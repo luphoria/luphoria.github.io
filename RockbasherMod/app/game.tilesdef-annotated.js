@@ -1,5 +1,5 @@
 // game.tilesdef painstakingly annotated by luphoria :)
-// contact me through matrix (@luphoria:matrix.org) or email (hi@luphoria.com)
+// contact me through matrix (@trent:gra.im) or email (hi@luphoria.com)
 game.tilesdef = { 
 "0": { "key": 0, "name": "Fond", "pics": [0], "eatable": true, "miam": "walk2", "glueprog": true }, //Nothing. Setting eatable to false will make this game broken asf
 "1": { "key": 1, "name": "Vide temporaire", "pics": [53], "eatable": true }, //Placeholder block. Has the texture of gold-in-dirt.
