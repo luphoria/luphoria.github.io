@@ -1,0 +1,196 @@
+<!-- 
+     !                 --- 2022 NOTE ---                 !
+       This was my very first code project/website.
+       It was written in 4th grade (I was 9 or 10 years 
+       old) in 2017, for a class. In the class, each kid
+       was assigned to learn whatever they wanted for one
+       month, completely unsupervised. I decided to build
+       an app, and this goal quickly shifted to building
+       a website. This HTML is a result.
+       You'll notice I mix up terminology pretty
+       consistently. I believed HTML and JavaScript were
+       one and the same. This isn't on the website, but
+       I also noted that I believed JSON was an extension
+       of JavaScript. BUT i was also like 10 years old lol
+       Enjoy!
+
+       (Best viewed by pasting all code here: https://www.w3schools.com/html/tryit.asp?filename=tryhtml_basic)
+                                            ~ Trent (luphoria)
+-->
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+    background-color: #19fadc;
+}
+ 
+h1 {
+    color: #8035fa;
+    text-align: center;
+    font-family: Trebuchet MS
+}
+ 
+p {
+    font-family: cursive;
+    font-size: 20px;
+    color: #f53131
+}
+ 
+input {
+	font-family: Trebuchet MS;
+    color: red;
+    background-color:lightblue
+}
+ 
+button {
+		font-family: Trebuchet MS;
+        color: lightblue;
+        background-color: purple
+}
+</style>
+</head>
+<body>
+ 
+<h1> Javascript Stuff by Trent</h1>
+ 
+<p>Note: I used a little CSS (other web coding style for decorating) as well for fonts, background colors, and text color.
+ 
+<p>Note for reader: Hello! I see you have successfully copied and pasted the javascript! I hope you have fun reading this and that you learn about javascript!
+ 
+<h1>Where to insert a paragraph.</h1>
+<p>Using p in <> will add a new paragraph. Example:   
+ 
+<p>This is a paragraph.
+ 
+<p>This is another paragraph. Look in the raw javascript code to find the paragraphs.
+ 
+<h1>Celsius to Farenheit</h1>
+ 
+<p>This is an example of converting Celsius to Fahrenheit: 
+ 
+<p><input id="c" onkeyup="convert('C')"> degrees Celsius</p>
+ 
+<p><input id="f" onkeyup="convert('F')"> degrees Fahrenheit</p> 
+ 
+<script>
+function convert(degree) {
+    var x;
+    if (degree == "C") {
+        x = document.getElementById("c").value * 9 / 5 + 32;
+        document.getElementById("f").value = Math.round(x);
+    } else {
+        x = (document.getElementById("f").value -32) * 5 / 9;
+        document.getElementById("c").value = Math.round(x);
+    }
+}
+</script>
+ 
+<p>Check the script to see what it looks like. :)
+ 
+<p>Our next example is getting a random number from 0 to 1,000. Directly below this paragraph, the number will be shown. Click Run again to get a new number.
+ 
+<p id="demo"></p>
+<script>
+document.getElementById("demo").innerHTML =
+Math.floor(Math.random() * 1000) + 1;
+</script>
+ 
+<p>As you can see, a random number will be shown. You can actually use this function for many things. Once again, check the raw script to see what it looks like.
+ 
+<h1>Input Boxes</h1>
+<p>A simple 'input box' has already been shown in the process of converting Celsius to Fahrenheit, but a simple input box that does nothing looks like this: <input>. To make it to things, you can do this:
+ 
+<p>a) Give it an ID. Put it directly after "input" like shown: input id="idgoeshere".
+<p>b) Next, add an "onkeyup" trigger like this: input id="idgoeshere" onkeyup="whathappenswhenyoutypeitin".
+ 
+<h1>Buttons</h1>
+ 
+<p>Creating buttons is surprisingly easy to do, but making buttons do things is something different. It is still easier than an input box, however. This is a button that says nothing and does nothing:
+ 
+<p>Pretty pointless, huh? You can barely even see it. It is easy to make you see it as shown here:
+<button type="button" <p>Hi there!</button>
+ 
+<p>Check the code to see what it looks like.
+ 
+<p>To make a button actually do something, you first need to find out what you want it to do. I want mine to change text from "This is pointless text." to "Hi there!"
+ 
+<p id="pointno">This is pointless text.</p>
+ 
+<button type="button" onclick='document.getElementById("pointno").innerHTML = "Hi there!"'>Click Me!</button>
+ 
+<p>Check the javascript to see how to make it. For a little bit more information, I gave the text an ID of "pointno" and changed pointno's value from "This is pointless text" to "Hi there!"
+ 
+<h1>Math</h1>
+ 
+<p>javascript can also do math. For example, I will do 5 plus 8. If you think I just made the text say 13, then check the javascript and you are wrong.
+ 
+<p id="kaboom"></p>
+ 
+<script>
+var x = 5;
+var y = 8;
+var z = x + y;
+document.getElementById("kaboom").innerHTML = z;
+</script>
+ 
+<p>You can also change the numbers and it will add the two as well.
+ 
+<p>Math.PI gives you the value of pi. javascript is only accurate up to 15 digits, however, so you will only get 15 digits.
+ 
+<p id="mathpi"></p>
+ 
+<script>
+var x = 0;
+var y = Math.PI;
+var z = x + y;
+document.getElementById("mathpi").innerHTML = z;
+</script>
+ 
+<p>You can also change the math from addition to subtraction, multiplication and division. Just change z from x + y to x - y for subtraction, x * y for multiplication, and x / y for division.
+ 
+<h1>Window Openers and Alert Boxes</h1>
+ 
+<p>I will first talk about window openers. They will open a window when you click on it.
+ 
+<script>
+function openWin() {
+    window.open("about:blank");
+}
+</script>
+ 
+ 
+<input type="button" value="Open a blank page" onclick="openWin()">
+ 
+ 
+ 
+<p>This will give you a blank page. As you can see in the javascript, it works by giving it a link, and then the button's onclick will open a new tab.
+ 
+<p>You can also make a new empty page with a little bit of content in it. For example, click on this:
+ 
+<button onclick="myFun()">Open a new thingy</button>
+ 
+<script>
+function myFun() {
+    var w = window.open();
+    w.document.open();
+    w.document.write("<h1>Thank you for clicking on this. Walk up to me and say, 'I ate a donut,' and you will claim a prize! (the prize is I will give you a trademark face)</h1>");
+    w.document.close();
+}
+</script>
+ 
+<p>Now for alert boxes. If you click on the button below, you will get an alert which says "Hello there...".
+ 
+<button onclick="myFunction()">Try it</button>
+ 
+<script>
+function myFunction() {
+    alert("Hello there...");
+}
+</script>
+ 
+<h1>CLOSING</h1>
+ 
+<p>I hope you enjoyed looking at my explanation of many different parts of javascript and that you learned a lot about javascript. I had a ton of fun making this and I hope you had fun learning about javascript. All of the information I got was from w3schools.com, and that is actually where you are right now. Thank you for reading my presentation of javascript.
+</body>
+</html>
