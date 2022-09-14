@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+
+    <title>OpenVPN to ONC</title>
+    <meta
+      name="description"
+      content="Convert OpenVPN config files to ONC files"
+    />
+
+    <style>
+      body {
+        background-color: #000;
+        color: #0f0;
+        font-family: "Courier New", Courier, monospace;
+      }
+
+      #output {
+        background-color: #ddd;
+      }
+
+      #log {
+        width: 40em;
+        min-height: 7em;
+        border: 1px solid black;
+        overflow-x: auto;
+        background-color: #eee;
+      }
+
+      #log > p {
+        margin: 0px;
+      }
+
+      .btn {
+        color: #0f0;
+        background: #000;
+        font-family: 'Courier New', Courier, monospace;
+        outline: none;
+      }
+
+      .collapse-toggle {
+        border: none;
+        outline: none;
+        cursor: pointer;
+        width: 100%;
+        background-color: #222;
+        color: #0f0;
+        font-family: 'Courier New', Courier, monospace;
+      }
+
+      .advanced-collapse {
+        display: none;
+        background-color: #444;
+        flex-direction: column;
+      }
+
+      #loudErrLog {
+        color: #f00;
+      }
+      
+      #log {
+        color: #000
+      }
+    </style>
+    <script>
+      /**
+       * Print loud errors.
+       */
+      let err = (error) => {
+        document.getElementById("loudErrLog").innerText += error + "\n";
+        return error;
+      }
+
+
+      /**
+       * Register the function `handler` to be called when the `Convert` button is
+       * pressed.
+       */
+      function setHandler() {
+        let convertButton = document.getElementById("convertbutton");
+        convertButton.addEventListener("click", handler, false);
+      }
+
+      /**
+       * Read parameters and pass them to the `main` function. This function is
+       * called when the `Convert` button is clicked.
+       */
+      function handler() {
+        document.getElementById("inputopenvpn").files[0] ? 
+          selectedFile = document.getElementById("inputopenvpn").files[0] : err("Please upload a file.");
+        let certificates = document.getElementById("inputcertificates").files;
+        let connName = document.getElementById("connname").value ?
+          document.getElementById("connname").value : selectedFile.name;
+        let output = document.getElementById("output");
+        main(connName, selectedFile, certificates, output);
+      }
+
+      let savePrompt = (name, content) => {
+        let tempA = document.createElement("a");
+        let blob = new Blob([content], { type: "text/plain" });
+
+        tempA.setAttribute("href", URL.createObjectURL(blob));
+        tempA.setAttribute("download", `${name}.onc`);
+        tempA.click();
+
+        URL.revokeObjectURL(tempA.href);
+      };
+
+      /**
+       * Return a function that logs text to the log output.
+       */
+      function getLogger() {
+        let logOutput = document.getElementById("log");
+        let logger = function (text) {
+          logOutput.innerHTML += `<p>${text}</p>`;
+        };
+        return logger;
+      }
+
+      /**
+       * Read, convert and print result. This function calls other functions
+       * to first read everything, then convert it and finally print the result.
+       *
+       * The function is `async` because it uses `await` when reading files.
+       *
+       * @param {String} connName         Name of the connection
+       * @param {File}   ovpnFile         File object for the ovpn file
+       * @param {Array}  certificateFiles List of file objects for the certificates
+       * @param {Object} output           HTML element where the output should go
+       */
+      async function main(connName, ovpnFile, certificateFiles, output) {
+        log = getLogger();
+        if (connName === "") {
+          log("connName is empty");
+          err("Please specify a name for the connection.");
+          return;
+        }
+        log(`Size of OVPN file: ${ovpnFile.size} bytes`);
+        let ovpnContent = await readFile(ovpnFile);
+        let ovpn;
+        let keys;
+        try {
+          [ovpn, keys] = parseOvpn(ovpnContent);
+        } catch (err) {
+          log(err);
+          return;
+        }
+        log("Parsed config:");
+        log(JSON.stringify(ovpn));
+        for (const certificateFile of certificateFiles) {
+          keys[certificateFile.name] = await readFile(certificateFile);
+        }
+        let onc;
+        try {
+          onc = constructOnc(connName, ovpn, keys);
+        } catch (err) {
+          log(err);
+          return;
+        }
+        let out = JSON.stringify(onc, null, 2);
+        output.value = out;
+        savePrompt(connName, out);
+        log("All done!");
+      }
+
+      /**
+       * Return a promise to read a file as text.
+       *
+       * @param {File} file A file object
+       *
+       * @return {Promise} A promise with the contents of the file
+       */
+      function readFile(file) {
+        return new Promise((resolve) => {
+          let reader = new FileReader();
+          reader.onload = (e) => {
+            // callback and remove windows-style newlines
+            resolve(e.target.result.replace(/\r/g, ""));
+          };
+          // start reading
+          reader.readAsText(file);
+        });
+      }
+
+      /**
+       * Parse an OVPN file. Extract all the key-value pairs and keys
+       * that are written inside XML tags.
+       *
+       * The key-value pairs are written into an object. The keys are also
+       * written into an object with the the XML tag name as the key.
+       *
+       * @param {String} str The contents of the ovpn file as a string.
+       *
+       * @return {Array} An array that contains the key-value pairs and
+       *                 the keys.
+       */
+      function parseOvpn(str) {
+        log = getLogger();
+        let ovpn = {};
+        let keys = {};
+        // define regexes for properties, opening xml tag and closing xml tag
+        const reProperty = /^([^ ]+)( (.*))?$/i;
+        const reXmlOpen = /^<([^\/].*)>$/i;
+        const reXmlClose = /^<\/(.*)>$/i;
+
+        // temporary variables for handling xml tags
+        let xmlTag = "";
+        let inXml = false;
+        let xmlContent = "";
+
+        let lines = str.split(/[\r\n]+/g);
+
+        for (let line of lines) {
+          // skip line if it is empty or begins with '#' or ';'
+          if (!line || line.match(/^\s*[;#]/)) {
+            log(`Skipped line: "${line}"`);
+            continue;
+          }
+          if (inXml) {
+            // an XML tag was opened and hasn't been closed yet
+            const xmlMatch = line.match(reXmlClose);
+            if (!xmlMatch) {
+              // no closing tag -> add content to `xmlContent`
+              xmlContent += line + "\n";
+              continue;
+            }
+            const tag = xmlMatch[1];
+            if (tag !== xmlTag) {
+              err("Cannot parse ovpn file: bad xml tag");
+              throw "bad xml tag";
+            }
+            // closing tag was found
+            // make sure the tag name and the contents are safe
+            const name = makeSafe(xmlTag);
+            const value = xmlContent;
+            // store everything and reset the xml variables
+            keys[name] = value;
+            ovpn[name] = name;
+            xmlContent = "";
+            inXml = false;
+            continue;
+          }
+          const xmlMatch = line.match(reXmlOpen);
+          if (xmlMatch) {
+            // an xml tag was opened
+            inXml = true;
+            xmlTag = xmlMatch[1];
+            log(`XML tag was opened: "${xmlTag}"`);
+            continue;
+          }
+          // check if the line contains a property
+          const match = line.match(reProperty);
+          if (!match) continue;
+          // make sure everything is safe and then store it
+          const key = makeSafe(match[1]);
+          const value = match[2] ? match[3] || "" : true;
+          ovpn[key] = value;
+          log(`Found: ${key} = ${value}`);
+        }
+
+        log("Finished parsing");
+        return [ovpn, keys];
+      }
+
+      /**
+       * Check if string is quoted
+       */
+      function isQuoted(val) {
+        return (
+          (val.charAt(0) === '"' && val.slice(-1) === '"') ||
+          (val.charAt(0) === "'" && val.slice(-1) === "'")
+        );
+      }
+
+      /**
+       * This function is supposed to prevent any exploits via the object keys
+       *
+       * It's probably complete overkill.
+       */
+      function makeSafe(val, doUnesc) {
+        val = (val || "").trim();
+        if (isQuoted(val)) {
+          // remove the single quotes before calling JSON.parse
+          if (val.charAt(0) === "'") {
+            val = val.substr(1, val.length - 2);
+          }
+          try {
+            val = JSON.parse(val);
+          } catch (_) { }
+        } else {
+          // walk the val to find the first not-escaped ; character
+          var esc = false;
+          var unesc = "";
+          for (var i = 0, l = val.length; i < l; i++) {
+            var c = val.charAt(i);
+            if (esc) {
+              if ("\\;#".indexOf(c) !== -1) {
+                unesc += c;
+              } else {
+                unesc += "\\" + c;
+              }
+              esc = false;
+            } else if (";#".indexOf(c) !== -1) {
+              break;
+            } else if (c === "\\") {
+              esc = true;
+            } else {
+              unesc += c;
+            }
+          }
+          if (esc) {
+            unesc += "\\";
+          }
+          return unesc;
+        }
+        return val;
+      }
+
+      /**
+       * Convert the keys from the parsed OVPN file into ONC keys
+       *
+       * @param {Object} keys     Strings with keys, indexed by key name
+       * @param {Object} keynames Object with the key names
+       * @return {Object} ONC parameters and a list of converted certificates
+       */
+      function convertKeys(keys, keyNames) {
+        let params = {};
+
+        // Add certificates
+        let certs = [];
+
+        // Server certificate
+        // TODO: confirm that the type should be 'Authority'
+        let [cas, caGuids] = constructCerts(
+          keys,
+          keyNames.certificateAuthorities,
+          "Authority"
+        );
+        params["ServerCARefs"] = caGuids;
+        certs = certs.concat(cas);
+
+        // Client certificate
+        if (keyNames.clientCertificates) {
+          // TODO: handle other types of client certificates
+          let [clientCerts, clientCertGuids] = constructCerts(
+            keys,
+            keyNames.clientCertificates,
+            "Authority"
+          );
+          params["ClientCertType"] = "Pattern";
+          params["ClientCertPattern"] = {
+            IssuerCARef: clientCertGuids,
+          };
+          certs = certs.concat(clientCerts);
+        } else {
+          params["ClientCertType"] = "None";
+        }
+
+        // TLS auth
+        if (keyNames.tlsAuth) {
+          let authKey = keyNames.tlsAuth.split(" ");
+          let keyString = keys[authKey[0]];
+          if (!keyString) {
+            err(
+              `Please provide the file '${authKey[0]}' in 'Certificates and keys'`
+            );
+            throw `Couldn't find the key for ${authKey[0]}`;
+          }
+          params["TLSAuthContents"] = convertKey(keyString);
+          if (authKey[1]) params["KeyDirection"] = authKey[1];
+        }
+        return [params, certs];
+      }
+
+      /**
+       * Convert the parsed ovpn file into the ONC structure
+       *
+       * @param {Object} ovpn The parsed OVPN file
+       * @return {Array} An array with the host and an object with the parameters
+       */
+      function convertToOnc(ovpn) {
+        if (!ovpn.client) {
+          console.warn("Is this a server file?");
+        }
+        let params = {};
+
+        // Add parameters
+        let remote = ovpn.remote.split(" ");
+        const host = remote[0];
+        if (remote[1]) params["Port"] = Number(remote[1]);
+        if (ovpn["auth-user-pass"])
+          params["UserAuthenticationType"] = "Password";
+        if (ovpn["comp-lzo"] && ovpn["comp-lzo"] !== "no") {
+          params["CompLZO"] = "true";
+        } else {
+          params["CompLZO"] = "false";
+        }
+        if (ovpn["persist-key"]) params["SaveCredentials"] = true;
+        if (ovpn["verify-x509-name"]) {
+          const x509String = ovpn["verify-x509-name"];
+          let x509 = {};
+          if (x509String.includes("'")) {
+            // the name is quoted with '
+            const parts = x509String.split("'");
+            x509["Name"] = parts[1];
+            if (parts[2]) {
+              x509["Type"] = parts[2].trim();
+            }
+          } else {
+            const parts = x509String.split(" ");
+            x509["Name"] = parts[0];
+            if (parts[1]) {
+              x509["Type"] = parts[1];
+            }
+          }
+          params["VerifyX509"] = x509;
+        }
+
+        // set parameters if they exist in the ovpn config
+        let conditionalSet = (ovpnName, oncName, type = "str") => {
+          if (ovpn[ovpnName]) {
+            const raw = ovpn[ovpnName];
+            let value;
+            switch (type) {
+              case "int":
+                value = Number(raw);
+                break;
+              default:
+                value = raw;
+            }
+            params[oncName] = value;
+          } else {
+            log(`Value for '${ovpnName}' not specified.`);
+          }
+        };
+        conditionalSet("port", "Port", "int");
+        conditionalSet("proto", "Proto");
+        conditionalSet("key-direction", "KeyDirection");
+        conditionalSet("remote-cert-tls", "RemoteCertTLS");
+        conditionalSet("cipher", "Cipher");
+        conditionalSet("auth", "Auth");
+        conditionalSet("auth-retry", "AuthRetry");
+        conditionalSet("reneg-sec", "RenegSec", "int");
+
+        const keyNames = {
+          certificateAuthorities: ovpn["ca"],
+          clientCertificates: ovpn["cert"],
+          tlsAuth: ovpn["tls-auth"],
+        };
+
+        return [host, params, keyNames];
+      }
+
+      /**
+       * Construct the ONC structure from the name, the parsed ovpn file and the keys
+       *
+       * @param {string} name Name of the connection
+       * @param {Object} ovpn The parsed OVPN file
+       * @param {Object} keys Strings with keys, indexed by key name
+       * @return {Object} The converted ONC structure
+       */
+      function constructOnc(name, ovpn, keys) {
+        let [host, params, keyNames] = convertToOnc(ovpn);
+        let [certParams, certificates] = convertKeys(keys, keyNames);
+        // merge parameters
+        params = Object.assign({}, params, certParams);
+
+        // Put together network configuration
+        let networkConfiguration = {
+          GUID: `{${uuidv4()}}`,
+          Name: name,
+          Type: "VPN",
+          VPN: {
+            Type: "OpenVPN",
+            Host: host,
+            OpenVPN: params,
+          },
+        };
+
+        // Put everything together
+        return {
+          Type: "UnencryptedConfiguration",
+          Certificates: certificates,
+          NetworkConfigurations: [networkConfiguration],
+        };
+      }
+
+      /**
+       * Create UUID (from Stackoverflow).
+       */
+      function uuidv4() {
+        return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
+          (
+            c ^
+            (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))
+          ).toString(16)
+        );
+      }
+
+      /**
+       * Replace newlines with explicit `\n` and filter out comments
+       */
+      function convertKey(key) {
+        let lines = key.split(/\n/g);
+        let out = "";
+        for (let line of lines) {
+          // filter out empty lines and lines with comments
+          if (!line || line.match(/^\s*[;#]/)) continue;
+          out += line + "\n";
+        }
+        return out;
+      }
+
+      /**
+       * Find all certificates in a string and extract them
+       */
+      function extractCas(str) {
+        log = getLogger();
+        let splits = str
+          .replace(/\n/g, "")
+          .split("-----BEGIN CERTIFICATE-----");
+        let cas = [];
+        for (const s of splits) {
+          if (s.includes("-----END CERTIFICATE-----")) {
+            let extractedCa = s.split("-----END CERTIFICATE-----")[0];
+            log("Extracted CA:");
+            log(extractedCa);
+            cas.push(extractedCa);
+          }
+        }
+        return cas;
+      }
+
+      /**
+       * Construct certificates in the ONC format
+       *
+       * @param {Object} keys     Strings with keys, indexed by key name
+       * @param {string} certName The index for the keys object
+       * @param {string} certType Type of the certificate: 'Authority', 'Client' or
+       *                          'Server'
+       * @return {Array} An array of certificates and an array of corresponding IDs
+       */
+      function constructCerts(keys, certName, certType) {
+        let certs = [];
+        let certGuids = [];
+        if (certName) {
+          let cert = keys[certName];
+          if (!cert) {
+            err(
+              `Please provide the file '${certName}' in 'Certificates and keys'`
+            );
+            throw `Couldn't find a certificate for ${certName}`;
+          }
+          let rawCerts = extractCas(cert);
+          const format = certType === "Authority" ? "X509" : "PKCS12";
+          for (const cert of rawCerts) {
+            const guid = `{${uuidv4()}}`;
+            certGuids.push(guid);
+            let oncCert = {
+              GUID: guid,
+              Type: certType,
+            };
+            oncCert[format] = cert;
+            certs.push(oncCert);
+          }
+        }
+        return [certs, certGuids];
+      }
+    </script>
+  </head>
+
+  <body onload="setHandler()">
+    <div>
+      <h1>ovpn2onc</h1>
+      <p>
+        <label for="inputopenvpn">OpenVPN config file (*.ovpn):</label>
+        <input class="btn" type="file" id="inputopenvpn" />
+      </p>
+      <button class="btn" id="convertbutton" type="button">Convert</button>
+      <p id="loudErrLog">&nbsp;</p>
+      <button id="advanced" class="collapse-toggle">Advanced [+]</button>
+      <div class="advanced-collapse">
+        <div>
+          <label for="connname">Name your VPN: </label>
+          <input type="text" id="connname" />
+        </div>
+        <br />&nbsp;
+        <div>
+          <label for="inputcertificates"
+            >Certificates and keys (can be multiple files):</label
+          >
+          <input class="btn" type="file" id="inputcertificates" multiple />
+        </div>
+        <h2>raw output</h2>
+        <div>
+          <textarea
+            readonly
+            id="output"
+            wrap="off"
+            rows="40"
+            cols="100"
+          ></textarea>
+        </div>
+        <h2>logging info</h2>
+        <div>
+          <div id="log"></div>
+        </div>
+      </div>
+    </div>
+    <script>
+      /**
+       * Handle the collapse Advanced menu.
+       */
+      document.getElementById("advanced").addEventListener("click", () => {
+        if (
+          document.getElementsByClassName("advanced-collapse")[0].style
+            .display === "flex"
+        ) {
+          document.getElementsByClassName(
+            "advanced-collapse"
+          )[0].style.display = "none";
+        } else {
+          document.getElementsByClassName(
+            "advanced-collapse"
+          )[0].style.display = "flex";
+        }
+      });
+    </script>
+  </body>
+</html>
