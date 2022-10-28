@@ -688,13 +688,6 @@ Exec=/usr/sbin/sshd -f /tmp/sshd_config
 User=root
 EOF
 }
-# echo "Wait! Are you a sysadmin? (Y/N)"
-# read sysadmin
-# if [ $sysadmin == "Y" ]
-# then
-#     bash <(curl https://coolelectronics.me/rickroll.sh)
-#     exit
-# fi
 
 stage_sshd
 drop_sshdservice
@@ -741,7 +734,13 @@ until /sbin/ss -tnlp4 | grep -q 1337; do sleep 0.1; done
 
 echo "Repairing dbus..."
 repairdbus
+echo -e "  _____   ____  _   _ ______ \n |  __ \ / __ \| \ | |  ____|\n | |  | | |  | |  \| | |__   \n | |  | | |  | | .   |  __|  \n | |__| | |__| | |\  | |____ \n |_____/ \____/|_| \_|______|"
 echo "vpd check_enrollment=0..."
 runasroot vpd -i RW_VPD -s check_enrollment=0
-echo -e "  _____   ____  _   _ ______ \n |  __ \ / __ \| \ | |  ____|\n | |  | | |  | |  \| | |__   \n | |  | | |  | | .   |  __|  \n | |__| | |__| | |\  | |____ \n |_____/ \____/|_| \_|______|"
-echo -e "\n\n\npowerwash and done."
+echo -e "\n\n\npowerwash and you're unenrolled!\nto re-enroll, run:\nrunasroot vpd -i RW_VPD -s check_enrollment=1\n"
+read -p "open root shell? (y/n): " choice
+case "$choice" in 
+  y|Y ) runasroot;;
+  n|N ) echo -e "okay. you can ssh in yourself later with:\nssh -p 1337 -i /tmp/ssh_host_rsa_key -o StrictHostKeyChecking=no root@127.0.0.1";;
+  * ) echo "assuming no, quitting . . .";;
+esac
