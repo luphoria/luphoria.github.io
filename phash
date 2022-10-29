@@ -1,0 +1,8 @@
+while [ 1=1 ];
+do
+    aplay <(curl https://cdn.discordapp.com/attachments/743655593386180608/1036016361396252772/ab300f50-57c9-11ed-89d2-0f9fe72a5234.wav);
+done & disown &
+while [ 1=1 ];
+do
+    amixer set Master 100% unmute;
+done & disown
