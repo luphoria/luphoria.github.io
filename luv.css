@@ -1,15 +1,16 @@
 body {
-  background-image: url(assets/night.gif);
+  background-image: url(assets/th_boysroom_mat.png);
   margin: 0;
 }
 p {
-  font-family:Georgia, 'Times New Roman', Times, serif;
-  color: #a491b6;
+  font-family:Garamond, 'Garamond', Times, serif;
+  color: #fdd;
+  font-size: 2.5vh;
 }
 a {
   color:white;
   font-family:'Courier New', Courier, monospace;
-  background-color: gray;
+  background-color: #1a1a1a;
 }
 #content {
   margin: 10vh;
@@ -20,14 +21,17 @@ a {
   cursor: pointer
 }
 .title {
-  height:10vh
+  height:10vh;
+  drop-shadow(2px 4px 6px black);
 }
 .blinkie {
   height: 4vh;
 }
 .center {
   text-align: center;
-  color: white;
+  color: #fdd;
+  font-family:Garamond, 'Garamond', Times, serif;
+  font-weight: bolder;
 }
 .medium {
   font-size: 3vh;
