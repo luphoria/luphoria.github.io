@@ -718,7 +718,7 @@ while :; do
 
     if [ -e /tmp/deleteauthpolicyd_chroot ]; then
         echo "Lost the race, giving up."
-        echo "Reboot the device and try agian! It shouldn't take more than a few tries."
+        echo "Reboot the device and try again! It shouldn't take more than a few tries."
         exit 1
     else
         break
