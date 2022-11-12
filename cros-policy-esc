@@ -1,0 +1,20 @@
+# CREDIT: CoolElectronics (coolelectronics.me)
+# INSTALL: curl https://luphoria.com/cros-policy-esc > ~/Downloads/cros-policy-esc
+# USAGE: 
+#  - On the your Wi-Fi network, set the network's DNS to one which blocks *.m.google.com.
+#  - bash <(cat ~/Downloads/cros-policy-esc)
+#  - Remove the account.
+#  - Add the account again (while connected to your Wi-Fi network).
+# HOW: 
+#  The flag "allow-failed-policy-fetch-for-test" does exactly what it says it does.
+#  By blocking the policy server network-wide, in conjunction with this script to append the flag, you can add an account without enforcing its policies.
+pgrep chrome | while read pid; do
+    args=$(cat /proc/$pid/cmdline | sed -e "s/\x00/ /g")
+    name=$(echo $args | cut -c1-25)
+    if echo $name | grep -E "\/opt\/google\/chrome\/chrome|google-chrome"; then
+        parsed=$(echo $(echo $args | sed "s/--login-(user|profile|manager)[^ ]+/ /") --login-manager --allow-failed-policy-fetch-for-test)
+        pkill -9 chrome
+        $parsed & disown
+        break
+    fi
+done
