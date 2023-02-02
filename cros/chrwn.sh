@@ -99,7 +99,7 @@ writefiles
 read -p "Deprovision device? (y/n): " choice
 case "$choice" in 
   y|Y ) echo "Deprovisioning...";runasroot vpd -i RW_VPD -s check_enrollment=0;runasroot vpd -i RW_VPD -s block_devmode=0;runasroot crossystem block_devmode=0
-;;
+;echo "Deprovisioned.";echo "Press ESC + REFRESH + POWER, then CTRL + D, then ENTER, then Space to re-enable Verified mode. You should be deprovisioned.";;
   * ) echo "taken (n)o";;
 esac
 
