@@ -96,10 +96,11 @@ getdevaccess
 echo "Writing files..."
 writefiles
 
-echo "Deprovisioning..."
-runasroot vpd -i RW_VPD -s check_enrollment=0
-runasroot vpd -i RW_VPD -s block_devmode=0
-runasroot crossystem block_devmode=0
+read -p "Deprovision device? (y/n): " choice
+case "$choice" in 
+  y|Y ) echo "Deprovisioning...";runasroot vpd -i RW_VPD -s check_enrollment=0;runasroot vpd -i RW_VPD -s block_devmode=0;runasroot crossystem block_devmode=0
+;;
+  * ) echo "taken (n)o";;
 
 echo "Providing root shell..."
 runasroot
