@@ -3,58 +3,42 @@
 
 <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>~ l u p h o r i a ~</title>
-    <link rel="stylesheet" href="luv.css" type="text/css" />
+    <link rel="stylesheet" href="index.css"/>
     <script>
-        // super simple: i use vh for all sizing so it is nice and
-        // dynamic, but the problem is, on mobile it sucks. this is because
-        // height is gt width. so, this simple oneliner will detect if that
-        // is the case, and if so, inject a friendly stylesheet :)
-        if(window.innerHeight > window.innerWidth) document.head.innerHTML += '<style>#content{margin:10vw}#enter{height:7vw}.title{height:10vw}.blinkie{height:4vw}.medium{font-size:3vw}.bread{width:40vw}</style>'
-
         history.pushState("https://luphoria.com","~ l u p h o r i a ~","/"); // in case somebody got here with a ?redirect
     </script>
 </head>
 <body>
-    <img style="position: fixed;" src="assets/uhc2.jpg" height="20" /><br />
-    <div id="content">
-        <div class="center">
-            <img class="bread" src="assets/luph-bread.png" /><br />
-            <img class="title" src="assets/luph.png" /><br />
-            <p><b>my website!<br />here, i host and share my projects, just for fun :)</b><br />MATRIX : @trent:gra.im<br />MAIL : hi<wbr>@lu<wbr>phori<wbr>a.com</p>
-            <img id="enter" onclick='document.getElementById("projects").style.display = "inline-block";document.getElementById("enter").style.display = "none"' src="assets/enter.gif"></img><br/>
-            <div style="display:none;" id="projects">
-                <div class="small"><b><a href="https://gra.im/">graim</a></b>: moderate a community that is on both [matrix] and Discord</div>
-                <div class="small"><b><a href="./hypertabs/index.html">hypertabs</a></b>: browse the web... in your browser!</div>
-                <div class="small"><b><a href="./MCanywhere/bookmarklet.html">minecraft anywhere restored</a></b>: turn any website into a game of Minecraft</div>
-                <div class="small"><b><a href="./RockbasherMod/index.html">rockbasher modding</a></b>: docs on the webgame <a href="https://rockbasher.com">rockbasher</a></div>
-                <!--<div class="small"><b><a href="./netlog-policy-password-tool.html">chromeOS policy password</a></b>: extract wifi password from chromeOS policy network</div>-->
-                <div class="small"><b><a href="./moviepxss/index.html">moviepxss</a></b>: hack the scammers!</div>
+    <div class="center">
+        <img class="bread" src="./resources/luphoria.png" alt="Bread"/><br />
+        <img src="./resources/luphoria-text.png" alt="~luphoria~"/><br />
+        <h2>contact: <a href="mailto:contact@luphoria.com">contact@luphoria.com</a> or [matrix] <a href="https://matrix.to/#/@trent:gra.im" target="_blank">@trent:gra.im</a> (EN/ES please!)</h3>
+        <p>
+            <i>hi! my name is Trent. i'm a computer programmer/developer and musician!</i> <br />
+            <br />
+            my main interests in computers are linux, web development, p2p/federation/decentralization, and  AI - especially FOSS. <br/>
+            i'm fluent in JS/TS, HTML5/CSS, as well as Go, Ada, Bash, Python, and others. <br />
+            <br />
+            musically, i do a few things! i am a producer, performer, and consumer. <br />
+            i like <b>writing music</b> - generally in rock, mariachi, electronic, jazz styles. <br/>
+            i like <b>performing</b>. i sing, and often play the trumpet, piano, and guitar! <br />
+            i listen to a whole lot of music, from genres ranging between traditional Siberian to experimental EDM :)<br />
+            one of my major interests within music is <b>xenharmony</b>, i.e. tuning systems other than 12 equal divisions of the octave. i &lt;3 microtonality!
+        </p>
+        <h2>projects</h2>
+        <p>
+            <b><a href="https://gra.im/">graim</a></b>: moderate a community that is on both [matrix] and Discord <br />
+            i'm a part of <a href="https://mercurywork.shop/" target="_blank">Mercury Workshop</a> and <a href="https://titaniumnetwork.org" target="_blank">TitaniumNetwork</a>!<br />
+            <br />
+            you can find lots of other projects i've worked on, in <a href="https://github.com/luphoria" target="_blank">my GitHub</a>.<br />
+            <i>&lt;!-- TODO: music projects here! ;) --&gt;</i>
+            <br /><br /><br /><br /><br /><br />
+            <div class="xmr">
+                <p class="donateblurb">XMR</p>
+                <p class="donateaddr">8545FtZD5X61gqscJLB1oWeSVhjZD2eAx1v4WuZdKgHqZ6LMSHBChNxJrtTxUM5VB2GZDbDFGV4JL5qP8tc9VUYn9fXYEqa</p>
             </div>
-            <br/><br/><br/>
-            <div id="blinkies">
-                <img class="blinkie" src="assets/worker.gif" />
-                <img class="blinkie" src="assets/www.gif" />
-                <img class="blinkie" src="assets/lovey.gif" />
-                <img class="blinkie" src="assets/got_html.gif" />
-                <img class="blinkie" src="assets/getacomputer.jpg" />
-                <img class="blinkie" src="assets/chill.webp" />
-                <img class="blinkie" src="assets/programmingsocks.png" />
-                <img class="blinkie" src="assets/deprived.gif" />
-                <img class="blinkie" src="assets/sutgoogle.gif" />
-                <img class="blinkie" src="assets/learnhtml.gif" />
-                <img class="blinkie" src="assets/groovy.webp" />
-                <img class="blinkie" src="assets/bookmark.gif" />
-                <img class="blinkie" src="assets/homosexual.gif" />
-                <img class="blinkie" src="assets/mavica.gif" />
-                <img class="blinkie" src="assets/netscape-1996.gif" />
-                <img class="blinkie" src="assets/system32.gif" />
-                <img class="blinkie" src="assets/site_best_viewed_with_monitor.gif" />
-                <img class="blinkie" src="assets/worker.gif" />
-            </div>
-        </div>
+        </p>
     </div>
 </body>
 

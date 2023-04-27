@@ -1,0 +1,33 @@
+body {
+  background-image: linear-gradient(#000, rgb(42, 30, 59));
+  height: 100vh;
+  margin: 0;
+  background-attachment: fixed;
+}
+p, h2 {
+  color: rgb(249, 219, 255);
+  font-family: 'Courier New', Courier, monospace;
+  
+}
+a:-webkit-any-link {
+  color: rgb(155, 131, 160)
+}
+.center {
+  text-align: center;
+}
+.bread {
+  height: 25vh;
+}
+
+.xmr .donateaddr {
+  display: none;
+}
+.xmr .donateblurb {
+  text-decoration: underline;
+}
+.xmr:hover .donateaddr {
+  display: block;
+}
+.xmr:hover .donateblurb {
+  display: none;
+}
