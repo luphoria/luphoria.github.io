@@ -4,12 +4,12 @@ body {
   margin: 0;
   background-attachment: fixed;
 }
-p, h2 {
+p, h2, fake, a {
   color: rgb(249, 219, 255);
   font-family: 'Courier New', Courier, monospace;
   
 }
-a:-webkit-any-link {
+a {
   color: rgb(155, 131, 160)
 }
 .center {
@@ -19,10 +19,10 @@ a:-webkit-any-link {
   height: 25vh;
 }
 
-.xmr .donateaddr {
+.donateaddr {
   display: none;
 }
-.xmr .donateblurb {
+.donateblurb {
   text-decoration: underline;
 }
 .xmr:hover .donateaddr {
