@@ -1,6 +1,4 @@
 [submodule "UBer"]
 	path = UBer
 	url = https://github.com/luphoria/UBer/
-[submodule "nmjs/namcomuseum-js"]
-	path = nmjs/namcomuseum-js
-	url = https://github.com/luphoria/namcomuseum-js
+
