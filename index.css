@@ -1,5 +1,5 @@
 body {
-  background-image: linear-gradient(#000, rgb(59, 30, 30));
+  background-image: linear-gradient(#000, rgb(51, 30, 59));
   height: 100vh;
   margin: 0;
   background-attachment: fixed;
@@ -10,7 +10,7 @@ p, h2, fake, a {
   
 }
 a {
-  color: rgb(160, 131, 146)
+  color: rgb(188, 185, 214)
 }
 .center {
   text-align: center;
