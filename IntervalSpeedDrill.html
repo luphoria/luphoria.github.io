@@ -18,6 +18,7 @@
     <h2 id="question"></h2>
     <h3 id="score"></h3>
     <h3 id="time"></h3>
+    <i id="timeAverage"></i>
     <h4 id="feedback"></h4>
     <button>A</button>
     <button>B</button>
@@ -45,6 +46,8 @@
       let TIME = 0;
       let QUESTION_NUMBER = 0;
       let CURRENT_SELECTION = "A";
+
+      let TIMES = [];
 
       let noteIntervals = {
         A: {
@@ -242,24 +245,35 @@
         document.getElementById(
           "question"
         ).innerText = `${note} + ${interval} =`;
-        document.getElementById("questionNumber").innerText = `Question #${QUESTION_NUMBER}`;
+        document.getElementById(
+          "questionNumber"
+        ).innerText = `Question #${QUESTION_NUMBER}`;
       };
 
       const registerInput = (selectedNote) => {
         console.log(selectedNote);
+        let elapsedTime = Date.now() - TIME;
         if (selectedNote == CURRENT_SELECTION) {
           SCORE += 1;
           document.getElementById("feedback").style.color = "green";
-          document.getElementById("feedback").innerText = `Correct: ${document.getElementById('question').innerText} ${CURRENT_SELECTION}`
+          document.getElementById("feedback").innerText = `Correct: ${
+            document.getElementById("question").innerText
+          } ${CURRENT_SELECTION}`;
+          document.getElementById("time").innerText = `Elapsed time: ${
+            elapsedTime / 1000
+          }s`;
+          TIMES.push(elapsedTime);
+          document.getElementById("timeAverage").innerText = `Average time: ${
+            TIMES.reduce((a, b) => a + b) / TIMES.length / 1000
+          }s`;
         } else {
           SCORE -= 1;
           document.getElementById("feedback").style.color = "red";
-          document.getElementById("feedback").innerText = `Incorrect: ${document.getElementById('question').innerText} ${CURRENT_SELECTION}. You selected ${selectedNote}`
+          document.getElementById("feedback").innerText = `Incorrect: ${
+            document.getElementById("question").innerText
+          } ${CURRENT_SELECTION}. You selected ${selectedNote}`;
         }
         document.getElementById("score").innerText = `Score: ${SCORE}`;
-        document.getElementById("time").innerText = `Elapsed time: ${
-          (Date.now() - TIME) / 1000
-         }s`;
         createQuestion();
       };
 
@@ -275,9 +289,11 @@
         SCORE = 0;
         TIME = 0;
         QUESTION_NUMBER = 0;
+        TIMES = [];
         document.getElementById("questionNumber").innerText = "";
         document.getElementById("score").innerText = "";
         document.getElementById("time").innerText = "";
+        document.getElementById("timeAverage").innerText = "";
         document.getElementById("feedback").innerText = "";
         createQuestion();
       };
