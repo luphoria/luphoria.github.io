@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interval Speed Drill</title>
+  </head>
+  <body>
+    <h1>Interval Speed Drill</h1>
+    <p>
+      This is a simple tool which is designed to help you internalize the
+      relationships between notes based on interval distance. If there is
+      interest, perhaps I can expand this to a more proper game -- just email me
+      (you can find it on my home page.).
+    </p>
+    <button onclick="beginGame()">Start game</button>
+    <p id="questionNumber"></p>
+    <h2 id="question"></h2>
+    <h3 id="score"></h3>
+    <h3 id="time"></h3>
+    <h4 id="feedback"></h4>
+    <button>A</button>
+    <button>B</button>
+    <button>C</button>
+    <button>D</button>
+    <button>E</button>
+    <button>F</button>
+    <button>G</button>
+    <br />
+    <button>A#/Bb</button>
+    <button>C#/Db</button>
+    <button>D#/Eb</button>
+    <button>F#/Gb</button>
+    <button>G#/Ab</button>
+    <br />
+    <br />
+    <br />
+    <p style="text-align: right">
+      <i style="text-align: right"
+        >~ <a href="https://luphoria.com/">luphoria</a></i
+      >
+    </p>
+    <script>
+      let SCORE = 0;
+      let TIME = 0;
+      let QUESTION_NUMBER = 0;
+      let CURRENT_SELECTION = "A";
+
+      let noteIntervals = {
+        A: {
+          m2: "A#/Bb",
+          M2: "B",
+          m3: "C",
+          M3: "C#/Db",
+          P4: "D",
+          TT: "D#/Eb",
+          P5: "E",
+          m6: "F",
+          M6: "F#/Gb",
+          m7: "G",
+          M7: "G#/Ab",
+        },
+        "A#/Bb": {
+          m2: "B",
+          M2: "C",
+          m3: "C#/Db",
+          M3: "D",
+          P4: "D#/Eb",
+          TT: "E",
+          P5: "F",
+          m6: "F#/Gb",
+          M6: "G",
+          m7: "G#/Ab",
+          M7: "A",
+        },
+        B: {
+          m2: "C",
+          M2: "C#/Db",
+          m3: "D",
+          M3: "D#/Eb",
+          P4: "E",
+          TT: "F",
+          P5: "F#/Gb",
+          m6: "G",
+          M6: "G#/Ab",
+          m7: "A",
+          M7: "A#/Bb",
+        },
+        C: {
+          m2: "C#/Db",
+          M2: "D",
+          m3: "D#/Eb",
+          M3: "E",
+          P4: "F",
+          TT: "F#/Gb",
+          P5: "G",
+          m6: "G#/Ab",
+          M6: "A",
+          m7: "A#/Bb",
+          M7: "B",
+        },
+        "C#/Db": {
+          m2: "D",
+          M2: "D#/Eb",
+          m3: "E",
+          M3: "F",
+          P4: "F#/Gb",
+          TT: "G",
+          P5: "G#/Ab",
+          m6: "A",
+          M6: "A#/Bb",
+          m7: "B",
+          M7: "C",
+        },
+        D: {
+          m2: "D#/Eb",
+          M2: "E",
+          m3: "F",
+          M3: "F#/Gb",
+          P4: "G",
+          TT: "G#/Ab",
+          P5: "A",
+          m6: "A#/Bb",
+          M6: "B",
+          m7: "C",
+          M7: "C#/Db",
+        },
+        "D#/Eb": {
+          m2: "E",
+          M2: "F",
+          m3: "F#/Gb",
+          M3: "G",
+          P4: "G#/Ab",
+          TT: "A",
+          P5: "A#/Bb",
+          m6: "B",
+          M6: "C",
+          m7: "C#/Db",
+          M7: "D",
+        },
+        E: {
+          m2: "F",
+          M2: "F#/Gb",
+          m3: "G",
+          M3: "G#/Ab",
+          P4: "A",
+          TT: "A#/Bb",
+          P5: "B",
+          m6: "C",
+          M6: "C#/Db",
+          m7: "D",
+          M7: "D#/Eb",
+        },
+        F: {
+          m2: "F#/Gb",
+          M2: "G",
+          m3: "G#/Ab",
+          M3: "A",
+          P4: "A#/Bb",
+          TT: "B",
+          P5: "C",
+          m6: "C#/Db",
+          M6: "D",
+          m7: "D#/Eb",
+          M7: "E",
+        },
+        "F#/Gb": {
+          m2: "G",
+          M2: "G#/Ab",
+          m3: "A",
+          M3: "A#/Bb",
+          P4: "B",
+          TT: "C",
+          P5: "C#/Db",
+          m6: "D",
+          M6: "D#/Eb",
+          m7: "E",
+          M7: "F",
+        },
+        G: {
+          m2: "G#/Ab",
+          M2: "A",
+          m3: "A#/Bb",
+          M3: "B",
+          P4: "C",
+          TT: "C#/Db",
+          P5: "D",
+          m6: "D#/Eb",
+          M6: "E",
+          m7: "F",
+          M7: "F#/Gb",
+        },
+        "G#/Ab": {
+          m2: "A",
+          M2: "A#/Bb",
+          m3: "B",
+          M3: "C",
+          P4: "C#/Db",
+          TT: "D",
+          P5: "D#/Eb",
+          m6: "E",
+          M6: "F",
+          m7: "F#/Gb",
+          M7: "G",
+        },
+      };
+      let notes = [
+        "A",
+        "A#/Bb",
+        "B",
+        "C#/Db",
+        "D",
+        "D#/Eb",
+        "E",
+        "F",
+        "F#/Gb",
+        "G",
+        "G#/Ab",
+      ];
+      let intervals = [
+        "m2",
+        "M2",
+        "m3",
+        "M3",
+        "P4",
+        "TT",
+        "P5",
+        "m6",
+        "M6",
+        "m7",
+        "M7",
+      ];
+
+      const createQuestion = () => {
+        QUESTION_NUMBER += 1;
+        TIME = Date.now();
+        let note = notes[Math.floor(Math.random() * notes.length)];
+        let interval = intervals[Math.floor(Math.random() * intervals.length)];
+
+        CURRENT_SELECTION = noteIntervals[note][interval];
+
+        document.getElementById(
+          "question"
+        ).innerText = `${note} + ${interval} =`;
+        document.getElementById("questionNumber").innerText = `Question #${QUESTION_NUMBER}`;
+      };
+
+      const registerInput = (selectedNote) => {
+        console.log(selectedNote);
+        if (selectedNote == CURRENT_SELECTION) {
+          SCORE += 1;
+          document.getElementById("feedback").style.color = "green";
+          document.getElementById("feedback").innerText = `Correct: ${document.getElementById('question').innerText} ${CURRENT_SELECTION}`
+        } else {
+          SCORE -= 1;
+          document.getElementById("feedback").style.color = "red";
+          document.getElementById("feedback").innerText = `Incorrect: ${document.getElementById('question').innerText} ${CURRENT_SELECTION}. You selected ${selectedNote}`
+        }
+        document.getElementById("score").innerText = `Score: ${SCORE}`;
+        document.getElementById("time").innerText = `Elapsed time: ${
+          (Date.now() - TIME) / 1000
+         }s`;
+        createQuestion();
+      };
+
+      for (let i = 0; i < 12; i++) {
+        document
+          .querySelectorAll("button")
+          [i + 1].addEventListener("click", () => {
+            registerInput(document.querySelectorAll("button")[i + 1].innerText);
+          });
+      }
+
+      const beginGame = () => {
+        SCORE = 0;
+        TIME = 0;
+        QUESTION_NUMBER = 0;
+        document.getElementById("questionNumber").innerText = "";
+        document.getElementById("score").innerText = "";
+        document.getElementById("time").innerText = "";
+        document.getElementById("feedback").innerText = "";
+        createQuestion();
+      };
+    </script>
+  </body>
+</html>
