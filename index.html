@@ -17,7 +17,7 @@
     <br />
     <br />
     <br />
-    <i id="ebk">you really disabled javascript in 2026?</i>
+    <i id="ebk"><noscript>you really disabled javascript in 2026?</noscript></i>
     <script>
     const ELITE_BALL_KNOWLEDGE = [
         "why are you blue?",
@@ -46,8 +46,11 @@
         "congratulation",
         "657rx",
         "amor de encava",
-        "my first attempt at adding this blurb failed because i placed the script tag in the head","","","","","","","","","","","","",""
+        "my first attempt at adding this blurb failed because i placed the script tag in the head",
+        "my second attempt at adding this blurb failed because i used round and not floor",
+        "undefimed",
+        "","","","","","","","","","","",""
     ];
-    document.getElementById("ebk").innerHTML = ELITE_BALL_KNOWLEDGE[Math.round(Math.random()*ELITE_BALL_KNOWLEDGE.length)];
+    document.getElementById("ebk").innerHTML = ELITE_BALL_KNOWLEDGE[Math.floor(Math.random()*ELITE_BALL_KNOWLEDGE.length)];
 </script>
 </body>
